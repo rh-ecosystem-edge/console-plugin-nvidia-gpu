@@ -1,0 +1,27 @@
+/**
+ * This file declares all extensions contributed by the plugin.
+ *
+ * Depending on extension 'type', the 'properties' object may contain code references, encoded
+ * as object literals { $codeRef: string }. The '$codeRef' value should be formatted as either
+ * 'moduleName.exportName' (referring to a named export) or 'moduleName' (referring to the
+ * 'default' export). Only the plugin's exposed modules may be used in code references.
+ */
+[
+  {
+    "type": "console.cluster-overview/utilization-item",
+    "properties": {
+      "title": "%plugin__console-plugin-gpu~GPU Power usage%",
+      "getUtilizationQuery": { "$codeRef": "clusterOverview.getPowerUsageUtilizationQuery" },
+      "humanize": { "$codeRef": "clusterOverview.humanizeWatts" }
+    }
+  },
+  {
+    "type": "console.cluster-overview/multiline-utilization-item",
+    "properties": {
+      "title": "%plugin__console-plugin-gpu~GPU Encoder/Decoder%",
+      "getUtilizationQueries": { "$codeRef": "clusterOverview.getUtilizationQueries" },
+      "humanize": { "$codeRef": "clusterOverview.humanizePercentage" },
+      "TopConsumerPopovers": {"$codeRef": "utilizationPopovers.popovers"}
+    }
+  }
+]
