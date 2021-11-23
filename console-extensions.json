@@ -20,8 +20,17 @@
     "properties": {
       "title": "%plugin__console-plugin-gpu~GPU Encoder/Decoder%",
       "getUtilizationQueries": { "$codeRef": "clusterOverview.getUtilizationQueries" },
-      "humanize": { "$codeRef": "clusterOverview.humanizePercentage" },
-      "TopConsumerPopovers": {"$codeRef": "utilizationPopovers.popovers"}
+      "humanize": { "$codeRef": "clusterOverview.humanizePercentage" }
+    }
+  },
+  {
+    "type": "console.dashboards/overview/health/prometheus",
+    "properties": {
+      "title": "%plugin__console-plugin-gpu~GPU%",
+      "queries": [
+        "gpu_operator_reconciliation_status"
+      ],
+      "healthHandler": { "$codeRef": "clusterOverview.healthHandler" }
     }
   }
 ]
