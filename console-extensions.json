@@ -26,11 +26,20 @@
   {
     "type": "console.dashboards/overview/health/prometheus",
     "properties": {
-      "title": "%plugin__console-plugin-gpu~GPU%",
+      "title": "%plugin__console-plugin-gpu~GPUs%",
       "queries": [
-        "gpu_operator_reconciliation_status"
+        "gpu_operator_reconciliation_status",
+        "DCGM_FI_DEV_GPU_TEMP"
       ],
-      "healthHandler": { "$codeRef": "clusterOverview.healthHandler" }
+      "healthHandler": { "$codeRef": "clusterStatus.healthHandler" },
+      "popupComponent": { "$codeRef": "clusterStatus.default" },
+      "popupTitle": "%plugin__console-plugin-gpu~GPUs health%"
+    }
+  },
+  {
+    "type": "console.cluster-overview/inventory-item",
+    "properties": {
+      "Component": { "$codeRef": "clusterInventory.default" }
     }
   }
 ]

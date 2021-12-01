@@ -44,7 +44,9 @@
     "displayName": "Console GPU Plugin",
     "description": "GPU plugin for OpenShift Console",
     "exposedModules": {
-      "clusterOverview": "./utils/cluster-overview"
+      "clusterOverview": "./utils/cluster-overview",
+      "clusterStatus": "./components/GPUStatus",
+      "clusterInventory": "./components/GPUClusterInventory"
     },
     "dependencies": {
       "@console/pluginAPI": "*"

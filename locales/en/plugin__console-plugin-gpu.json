@@ -1,5 +1,10 @@
 {
+  "Graphics Cards": "Graphics Cards",
+  "Designed for parallel processing, the GPUs are used in a wide range of applications, including graphics and video rendering.": "Designed for parallel processing, the GPUs are used in a wide range of applications, including graphics and video rendering.",
+  "Operator": "Operator",
+  "Temperature sensors": "Temperature sensors",
   "GPU Power usage": "GPU Power usage",
   "GPU Encoder/Decoder": "GPU Encoder/Decoder",
-  "GPU": "GPU"
+  "GPUs": "GPUs",
+  "GPUs health": "GPUs health"
 }

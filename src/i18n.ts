@@ -6,4 +6,5 @@
 
 // t('plugin__console-plugin-gpu~GPU Power usage')
 // t('plugin__console-plugin-gpu~GPU Encoder/Decoder')
-// t('plugin__console-plugin-gpu~GPU')
+// t('plugin__console-plugin-gpu~GPUs')
+// t('plugin__console-plugin-gpu~GPUs health')
