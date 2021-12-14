@@ -39,7 +39,7 @@
   {
     "type": "console.cluster-overview/inventory-item",
     "properties": {
-      "Component": { "$codeRef": "clusterInventory.default" }
+      "component": { "$codeRef": "clusterInventory.default" }
     }
   }
 ]

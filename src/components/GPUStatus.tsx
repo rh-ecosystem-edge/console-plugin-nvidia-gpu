@@ -4,7 +4,7 @@ import { CheckCircleIcon, InProgressIcon } from '@patternfly/react-icons';
 import { useTranslation } from 'react-i18next';
 import { HealthState, StatusPopupItem, StatusPopupSection } from '@openshift-console/dynamic-plugin-sdk';
 import { PrometheusHealthPopupProps, PrometheusHealthHandler, SubsystemHealth } from '@openshift-console/dynamic-plugin-sdk/lib/extensions/dashboard-types';
-import { PrometheusResponse } from '@openshift-console/dynamic-plugin-sdk/lib/api/prometheus-types';
+// import { PrometheusResponse } from '@openshift-console/dynamic-plugin-sdk/lib/api/prometheus-types';
 import { Link } from 'react-router-dom';
 import { global_palette_green_500 as okColor } from '@patternfly/react-tokens/dist/js/global_palette_green_500';
 
@@ -64,7 +64,7 @@ export const healthHandler: PrometheusHealthHandler = (responses) => {
   return { state: HealthState.OK };
 }
 
-type SubsystemHealthHandler = (responses: {response: PrometheusResponse, error: any}[]) => SubsystemHealth & { icon?: React.ReactNode }
+type SubsystemHealthHandler = (responses: {response: any, error: any}[]) => SubsystemHealth & { icon?: React.ReactNode }
 
 const getTemperatureHealth: SubsystemHealthHandler = (responses) => {
   const { response, error } = responses[1];
@@ -125,14 +125,14 @@ const getOperatorHealth: SubsystemHealthHandler = (responses) => {
   let message: string;
   let icon: React.ReactNode;
   switch (result) {
-    case '1':
+    case '0':
       state = HealthState.PROGRESS
       message = 'Pending'
       icon = <InProgressIcon />
       break;
-    case '2':
+    case '1':
       state = HealthState.OK
-      message = 'Good'
+      message = 'Healthy'
       icon =  <CheckCircleIcon color={okColor.value} />
       break;
     case '-1':

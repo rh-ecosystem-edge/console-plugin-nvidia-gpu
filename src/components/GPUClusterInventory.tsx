@@ -5,10 +5,10 @@ import {
   K8sResourceCommon,
   useK8sWatchResource,
   InventoryItem,
-  InventoryTitle,
-  InventoryBody,
-  InventoryStatus,
-  InventoryLoading,
+  InventoryItemTitle,
+  InventoryItemBody,
+  InventoryItemStatus,
+  InventoryItemLoading,
 } from '@openshift-console/dynamic-plugin-sdk';
 
 const GPUClusterInventory = () => {
@@ -35,24 +35,24 @@ const GPUClusterInventory = () => {
   if (loadError) {
     title = <Link to="">{t('Graphics Cards')}</Link>;
   } else if (!loaded) {
-    title = <><InventoryLoading /><Link to="">{t('Graphics Cards')}</Link></>;
+    title = <><InventoryItemLoading /><Link to="">{t('Graphics Cards')}</Link></>;
   }
 
   return (
     <InventoryItem>
-      <InventoryTitle>{title}</InventoryTitle>
-      <InventoryBody error={loadError}>
+      <InventoryItemTitle>{title}</InventoryItemTitle>
+      <InventoryItemBody error={loadError}>
         {Object.keys(statuses)
           .filter((k) => statuses[k].count !== 0)
           .map((k) => (
-            <InventoryStatus
+            <InventoryItemStatus
               key={k}
               count={statuses[k].count}
               icon={statuses[k].icon}
               linkTo={statuses[k].linkTo}
             />
         ))}
-      </InventoryBody>
+      </InventoryItemBody>
     </InventoryItem>
   )
 };
