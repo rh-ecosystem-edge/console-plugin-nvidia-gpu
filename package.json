@@ -9,7 +9,8 @@
     "start": "yarn ts-node node_modules/.bin/webpack serve",
     "i18n": "i18next \"src/**/*.{js,jsx,ts,tsx}\" [-oc] -c i18next-parser.config.js",
     "ts-node": "ts-node -O '{\"module\":\"commonjs\"}'",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint ./src --fix",
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,md,scss,yaml,yml}'"
   },
   "devDependencies": {
     "@openshift-console/dynamic-plugin-sdk": "0.0.3",
@@ -29,6 +30,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "file-loader": "^6.2.0",
     "i18next-parser": "^3.3.0",
     "react": "17.0.1",

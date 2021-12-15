@@ -1,60 +1,57 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import {
   K8sResourceCommon,
   useK8sWatchResource,
   InventoryItem,
   InventoryItemTitle,
-  InventoryItemBody,
-  InventoryItemStatus,
   InventoryItemLoading,
 } from '@openshift-console/dynamic-plugin-sdk';
 
+type NodeKind = K8sResourceCommon & {
+  status?: {
+    capacity?: {
+      'nvidia.com/gpu': string;
+    };
+  };
+};
+
 const GPUClusterInventory = () => {
-  const { t } = useTranslation("plugin__console-plugin-gpu");
-  const [nodes, loaded, loadError] = useK8sWatchResource<K8sResourceCommon[]>({
+  const { t } = useTranslation('plugin__console-plugin-gpu');
+  const [nodes, loaded, loadError] = useK8sWatchResource<NodeKind[]>({
     groupVersionKind: {
       kind: 'Node',
       version: 'v1',
-      group: 'core',
     },
     isList: true,
   });
 
-  const statuses = nodes.reduce((acc, node) => {
-    if(node.metadata?.labels?.['node-role.kubernetes.io/worker']){
-      acc.worker.count++;
-    } else {
-      acc.master.count++;
-    }
-    return acc;
-  }, {worker: {count: 0, icon: <>ic2</>, linkTo: 'abc'}, master: {count: 0, icon: <>ic1</>}});
+  let gpuCount = 0;
 
-  let title = <Link  to="">{t('Graphics Cards')}</Link>;
+  nodes.forEach((node) => {
+    const gpus = node.status?.capacity?.['nvidia.com/gpu'];
+    if (gpus) {
+      gpuCount += Number.parseInt(gpus);
+    }
+  });
+
+  let title: React.ReactNode = t('{{count}} Graphics Cards', { count: gpuCount });
   if (loadError) {
-    title = <Link to="">{t('Graphics Cards')}</Link>;
+    title = t('Graphics Cards');
   } else if (!loaded) {
-    title = <><InventoryItemLoading /><Link to="">{t('Graphics Cards')}</Link></>;
+    title = (
+      <>
+        <InventoryItemLoading />
+        {t('Graphics Cards')}
+      </>
+    );
   }
 
   return (
     <InventoryItem>
       <InventoryItemTitle>{title}</InventoryItemTitle>
-      <InventoryItemBody error={loadError}>
-        {Object.keys(statuses)
-          .filter((k) => statuses[k].count !== 0)
-          .map((k) => (
-            <InventoryItemStatus
-              key={k}
-              count={statuses[k].count}
-              icon={statuses[k].icon}
-              linkTo={statuses[k].linkTo}
-            />
-        ))}
-      </InventoryItemBody>
     </InventoryItem>
-  )
+  );
 };
 
 export default GPUClusterInventory;
