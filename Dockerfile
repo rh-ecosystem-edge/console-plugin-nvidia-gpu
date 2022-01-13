@@ -1,12 +1,11 @@
 
-FROM quay.io/coreos/tectonic-console-builder:v23 AS build
+FROM registry.ci.openshift.org/open-cluster-management/builder:nodejs14-linux AS builder
 
-RUN npm install -g n
-RUN n lts
-
-ADD . /usr/src/app
-WORKDIR /usr/src/app
+ADD . /plugin
+WORKDIR /plugin
 RUN yarn install && yarn build
 
-EXPOSE 9001
-ENTRYPOINT [ "./http-server.sh", "./dist" ]
+FROM registry.access.redhat.com/ubi8/nginx-118
+ADD default.conf "${NGINX_CONFIGURATION_PATH}"
+COPY --from=builder /plugin/dist .
+CMD /usr/libexec/s2i/run
