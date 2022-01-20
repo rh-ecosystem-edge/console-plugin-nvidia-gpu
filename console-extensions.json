@@ -10,6 +10,15 @@
   {
     "type": "console.cluster-overview/utilization-item",
     "properties": {
+      "title": "%plugin__console-plugin-gpu~GPU%",
+      "getUtilizationQuery": { "$codeRef": "clusterOverview.getGPUUtilizationQuery" },
+      "getTotalQuery": { "$codeRef": "clusterOverview.getGPUTotalUtilizationQuery" },
+      "humanize": { "$codeRef": "clusterOverview.humanizeGPU" }
+    }
+  },
+  {
+    "type": "console.cluster-overview/utilization-item",
+    "properties": {
       "title": "%plugin__console-plugin-gpu~GPU Power usage%",
       "getUtilizationQuery": { "$codeRef": "clusterOverview.getPowerUsageUtilizationQuery" },
       "humanize": { "$codeRef": "clusterOverview.humanizeWatts" }
@@ -27,10 +36,7 @@
     "type": "console.dashboards/overview/health/prometheus",
     "properties": {
       "title": "%plugin__console-plugin-gpu~GPUs%",
-      "queries": [
-        "gpu_operator_reconciliation_status",
-        "DCGM_FI_DEV_GPU_TEMP"
-      ],
+      "queries": ["gpu_operator_reconciliation_status", "DCGM_FI_DEV_GPU_TEMP"],
       "healthHandler": { "$codeRef": "clusterStatus.healthHandler" },
       "popupComponent": { "$codeRef": "clusterStatus.default" },
       "popupTitle": "%plugin__console-plugin-gpu~GPUs health%"
