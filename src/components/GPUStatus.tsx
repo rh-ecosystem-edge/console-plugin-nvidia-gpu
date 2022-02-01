@@ -112,7 +112,7 @@ const getTemperatureHealth: SubsystemHealthHandler = (responses) => {
 
   return {
     state: HealthState.OK,
-    message: 'Good',
+    message: 'Healthy',
     icon: <CheckCircleIcon color={okColor.value} />,
   };
 };
