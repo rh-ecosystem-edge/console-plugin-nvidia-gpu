@@ -2,29 +2,29 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: console-plugin-gpu-template
+  name: console-plugin-nvidia-gpu-template
   annotations:
     openshift.io/display-name: OpenShift Console GPU Plugin Template
-    openshift.io/documentation-url: "https://github.com/edge-infrastructure/console-plugin-gpu"
+    openshift.io/documentation-url: "https://github.com/edge-infrastructure/console-plugin-nvidia-gpu"
     iconClass: icon-nginx
     tags: openshift,console,plugin,nginx,gpu
 parameters:
 - description: Name of your plugin. This name must match the name in the consolePlugin declaration in package.json.
   name: PLUGIN_NAME
-  value: console-plugin-gpu
+  value: console-plugin-nvidia-gpu
   required: true
 - description: Namespace for your plugin. The namespace will be created by the template.
   name: NAMESPACE
-  value: console-plugin-gpu
+  value: console-plugin-nvidia-gpu
   required: true
 - description: Container image of the plugin.
   name: IMAGE
-  value: quay.io/edge-infrastructure/console-plugin-gpu:latest
+  value: quay.io/edge-infrastructure/console-plugin-nvidia-gpu:latest
   required: true
 message: >-
   To enable the plugin on the cluster, run the following command:
   oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["${PLUGIN_NAME}"] } }' --type=merge
-  For more information about using this template, see https://github.com/edge-infrastructure/console-plugin-gpu
+  For more information about using this template, see https://github.com/edge-infrastructure/console-plugin-nvidia-gpu
 objects:
   - apiVersion: v1
     kind: Namespace

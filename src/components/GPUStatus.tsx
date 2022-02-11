@@ -22,7 +22,7 @@ import { global_palette_green_500 as okColor } from '@patternfly/react-tokens/di
 //gpu_operator_node_cuda_ready ?
 
 const GPUStatus: React.FC<PrometheusHealthPopupProps> = ({ responses }) => {
-  const { t } = useTranslation('plugin__console-plugin-gpu');
+  const { t } = useTranslation('plugin__console-plugin-nvidia-gpu');
   const operatorHealth = getOperatorHealth(responses);
   const temperatureHealth = getTemperatureHealth(responses);
   return (
