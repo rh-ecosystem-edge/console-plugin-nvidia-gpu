@@ -17,7 +17,7 @@ type NodeKind = K8sResourceCommon & {
 };
 
 const GPUClusterInventory = () => {
-  const { t } = useTranslation('plugin__console-plugin-gpu');
+  const { t } = useTranslation('plugin__console-plugin-nvidia-gpu');
   const [nodes, loaded, loadError] = useK8sWatchResource<NodeKind[]>({
     groupVersionKind: {
       kind: 'Node',
