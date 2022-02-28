@@ -27,7 +27,7 @@ $ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edg
 $ kubectl -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
 
 # enable the plugin
-$ kubectl patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["console-plugin-nvidia-gpu"] } }' --type=merge
+$ kubectl patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "console-plugin-nvidia-gpu" }]' --type=json
 ```
 
 ### Helm Tests
