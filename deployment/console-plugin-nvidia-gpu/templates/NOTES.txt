@@ -1,7 +1,0 @@
-View the Console Plugin NVIDIA GPU deployed resources by running the following command:
-
-$ kubectl -n {{ .Release.Namespace }} get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
-
-Enable the plugin by running the following command:
-
-$ kubectl patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "console-plugin-nvidia-gpu" }]' --type=json
