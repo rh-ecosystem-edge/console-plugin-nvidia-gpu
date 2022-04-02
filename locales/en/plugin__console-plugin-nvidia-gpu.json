@@ -6,5 +6,11 @@
   "GPU Power usage": "GPU Power usage",
   "GPU Encoder/Decoder": "GPU Encoder/Decoder",
   "GPUs": "GPUs",
-  "GPUs health": "GPUs health"
+  "GPUs health": "GPUs health",
+  "GPU providers": "GPU providers",
+  "NVIDIA": "NVIDIA",
+  "AMD": "AMD",
+  "other": "other",
+  " and ": " and ",
+  "No GPUs currently detected": "No GPUs currently detected"
 }

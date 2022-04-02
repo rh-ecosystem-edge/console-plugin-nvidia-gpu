@@ -47,5 +47,12 @@
     "properties": {
       "component": { "$codeRef": "clusterInventory.default" }
     }
+  },
+  {
+    "type": "console.dashboards/overview/detail/item",
+    "properties": {
+      "title": "%plugin__console-plugin-nvidia-gpu~GPU providers%",
+      "component": { "$codeRef": "overviewDetailItem.default" }
+    }
   }
 ]
