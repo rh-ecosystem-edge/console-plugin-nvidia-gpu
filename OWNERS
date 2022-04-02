@@ -1,7 +1,7 @@
 # See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
 
 filters:
-  .*:
+  ".*":
     approvers:
       - jtomasek
       - mareklibra
@@ -10,7 +10,7 @@ filters:
       - jtomasek
       - mareklibra
       - rawagner
-  ^Dockerfile\..*:
+  "^Dockerfile.*":
     labels:
       - downstream-change-needed
 
