@@ -8,12 +8,21 @@
  */
 [
   {
+    "type": "console.flag",
+    "properties": {
+      "handler": { "$codeRef": "gpuOperatorFeatureFlag.handler" }
+    }
+  },
+  {
     "type": "console.cluster-overview/utilization-item",
     "properties": {
       "title": "%plugin__console-plugin-nvidia-gpu~GPU%",
       "getUtilizationQuery": { "$codeRef": "clusterOverview.getGPUUtilizationQuery" },
       "getTotalQuery": { "$codeRef": "clusterOverview.getGPUTotalUtilizationQuery" },
       "humanize": { "$codeRef": "clusterOverview.humanizeGPU" }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
     }
   },
   {
@@ -22,6 +31,9 @@
       "title": "%plugin__console-plugin-nvidia-gpu~GPU Power usage%",
       "getUtilizationQuery": { "$codeRef": "clusterOverview.getPowerUsageUtilizationQuery" },
       "humanize": { "$codeRef": "clusterOverview.humanizeWatts" }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
     }
   },
   {
@@ -30,6 +42,9 @@
       "title": "%plugin__console-plugin-nvidia-gpu~GPU Encoder/Decoder%",
       "getUtilizationQueries": { "$codeRef": "clusterOverview.getUtilizationQueries" },
       "humanize": { "$codeRef": "clusterOverview.humanizePercentage" }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
     }
   },
   {
@@ -40,12 +55,18 @@
       "healthHandler": { "$codeRef": "clusterStatus.healthHandler" },
       "popupComponent": { "$codeRef": "clusterStatus.default" },
       "popupTitle": "%plugin__console-plugin-nvidia-gpu~GPUs health%"
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
     }
   },
   {
     "type": "console.cluster-overview/inventory-item",
     "properties": {
       "component": { "$codeRef": "clusterInventory.default" }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
     }
   },
   {
@@ -53,6 +74,36 @@
     "properties": {
       "component": { "$codeRef": "overviewDetailItem.default" },
       "id": "detail-item-gpu-providers"
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "gpu-dashboard",
+      "perspective": "admin",
+      "section": "compute",
+      "name": "%plugin__console-plugin-nvidia-gpu~GPUs%",
+      "href": "/gpu-dashboard",
+      "namespaced": false
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": ["/gpu-dashboard"],
+      "component": {
+        "$codeRef": "gpuDashboard.default"
+      }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
     }
   }
 ]
