@@ -51,8 +51,8 @@
   {
     "type": "console.dashboards/overview/detail/item",
     "properties": {
-      "title": "%plugin__console-plugin-nvidia-gpu~GPU providers%",
-      "component": { "$codeRef": "overviewDetailItem.default" }
+      "component": { "$codeRef": "overviewDetailItem.default" },
+      "id": "detail-item-gpu-providers"
     }
   }
 ]

@@ -1,21 +1,12 @@
 import * as React from 'react';
-import { InventoryItemLoading } from '@openshift-console/dynamic-plugin-sdk';
+import { OverviewDetailsItem } from '@openshift-console/dynamic-plugin-sdk';
 import { useTranslation } from 'react-i18next';
 
 import { useAllGpuProviders } from '../resources/nodes';
-import { Dash } from './Dash';
 
 const GPUProviders: React.FC = () => {
   const { t } = useTranslation('plugin__console-plugin-nvidia-gpu');
   const [providers, loaded, loadError] = useAllGpuProviders();
-
-  if (loadError) {
-    return <Dash />;
-  }
-
-  if (!loaded) {
-    return <InventoryItemLoading />;
-  }
 
   let result = t('No GPUs currently detected');
   if (providers.nvidia) {
@@ -47,7 +38,16 @@ const GPUProviders: React.FC = () => {
     }
   }
 
-  return <>{result}</>;
+  return (
+    <OverviewDetailsItem
+      title={t('GPU providers')}
+      isLoading={!loaded}
+      error={!!loadError}
+      // valueClassName="co-select-to-copy"
+    >
+      {result}
+    </OverviewDetailsItem>
+  );
 };
 
 export default GPUProviders;

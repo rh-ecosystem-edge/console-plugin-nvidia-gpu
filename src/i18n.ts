@@ -8,4 +8,3 @@
 // t('plugin__console-plugin-nvidia-gpu~GPU Encoder/Decoder')
 // t('plugin__console-plugin-nvidia-gpu~GPUs')
 // t('plugin__console-plugin-nvidia-gpu~GPUs health')
-// t('plugin__console-plugin-nvidia-gpu~GPU providers')
