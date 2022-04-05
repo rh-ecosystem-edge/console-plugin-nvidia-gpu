@@ -17,27 +17,34 @@ const GPUProviders: React.FC = () => {
     return <InventoryItemLoading />;
   }
 
-  let result = '';
+  let result = t('No GPUs currently detected');
   if (providers.nvidia) {
-    result = t('NVIDIA');
-  }
-  if (providers.amd) {
-    if (result && providers.other) {
-      result += ', ';
-    } else if (result) {
-      result += t(' and ');
+    if (providers.amd) {
+      if (providers.other) {
+        result = t('NVIDIA, AMD and others');
+      } else {
+        result = t('NVIDIA and AMD');
+      }
+    } else {
+      if (providers.other) {
+        result = t('NVIDIA and others');
+      } else {
+        result = t('NVIDIA');
+      }
     }
-    result += t('AMD');
-  }
-  if (providers.other) {
-    if (result) {
-      result += t(' and ');
+  } else {
+    if (providers.amd) {
+      if (providers.other) {
+        result = t('AMD and others');
+      } else {
+        result = t('AMD');
+      }
+    } else {
+      if (providers.other) {
+        result = t('others');
+      }
+      // else no GPU
     }
-    result += t('other');
-  }
-
-  if (!result) {
-    result = t('No GPUs currently detected');
   }
 
   return <>{result}</>;

@@ -8,9 +8,12 @@
   "GPUs": "GPUs",
   "GPUs health": "GPUs health",
   "GPU providers": "GPU providers",
+  "No GPUs currently detected": "No GPUs currently detected",
+  "NVIDIA, AMD and others": "NVIDIA, AMD and others",
+  "NVIDIA and AMD": "NVIDIA and AMD",
+  "NVIDIA and others": "NVIDIA and others",
   "NVIDIA": "NVIDIA",
+  "AMD and others": "AMD and others",
   "AMD": "AMD",
-  "other": "other",
-  " and ": " and ",
-  "No GPUs currently detected": "No GPUs currently detected"
+  "others": "others"
 }
