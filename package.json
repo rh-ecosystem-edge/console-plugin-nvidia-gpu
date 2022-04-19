@@ -15,6 +15,7 @@
   "devDependencies": {
     "@openshift-console/dynamic-plugin-sdk": "0.0.6",
     "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.6",
+    "@openshift-console/console-plugin-shared": "file:../console/frontend/packages/console-plugin-shared/dist",
     "@patternfly/react-core": "4.162.2",
     "@patternfly/react-table": "4.31.7",
     "@types/node": "^16.11.6",

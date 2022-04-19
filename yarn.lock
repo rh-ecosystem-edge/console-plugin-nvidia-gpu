@@ -96,6 +96,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@openshift-console/console-plugin-shared@file:../console/frontend/packages/console-plugin-shared/dist":
+  version "0.0.0-fixed"
+  dependencies:
+    classnames "2.x"
+
 "@openshift-console/dynamic-plugin-sdk-webpack@0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@openshift-console/dynamic-plugin-sdk-webpack/-/dynamic-plugin-sdk-webpack-0.0.6.tgz#f1c0a7309ce09652f9984594049c1034954122a8"
@@ -1076,6 +1081,11 @@ chokidar@^3.5.3:
 chrome-trace-event@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/chrome-trace-event/-/chrome-trace-event-1.0.3.tgz#1015eced4741e15d06664a957dbbf50d041e26ac"
+
+classnames@2.x:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
 clean-stack@^2.0.0:
   version "2.2.0"
