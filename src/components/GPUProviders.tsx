@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { OverviewDetailsItem } from '@openshift-console/dynamic-plugin-sdk';
 import { useTranslation } from 'react-i18next';
-
+import { OverviewDetailItem } from '@openshift-console/console-plugin-shared';
 import { useAllGpuProviders } from '../resources/nodes';
 
 const GPUProviders: React.FC = () => {
@@ -39,14 +38,15 @@ const GPUProviders: React.FC = () => {
   }
 
   return (
-    <OverviewDetailsItem
+    <OverviewDetailItem
+      textNotAvailable={t('Not available')}
       title={t('GPU providers')}
       isLoading={!loaded}
       error={!!loadError}
       // valueClassName="co-select-to-copy"
     >
       {result}
-    </OverviewDetailsItem>
+    </OverviewDetailItem>
   );
 };
 
