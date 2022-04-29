@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { OverviewDetailItem } from '@openshift-console/console-plugin-shared';
+import { OverviewDetailItem } from '@openshift-console/plugin-shared';
 import { useAllGpuProviders } from '../resources/nodes';
 
 const GPUProviders: React.FC = () => {
@@ -39,10 +39,9 @@ const GPUProviders: React.FC = () => {
 
   return (
     <OverviewDetailItem
-      textNotAvailable={t('Not available')}
       title={t('GPU providers')}
       isLoading={!loaded}
-      error={!!loadError}
+      error={!!loadError && t('Not available')}
       // valueClassName="co-select-to-copy"
     >
       {result}

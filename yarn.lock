@@ -96,11 +96,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@openshift-console/console-plugin-shared@file:../console/frontend/packages/console-plugin-shared/dist":
-  version "0.0.0-fixed"
-  dependencies:
-    classnames "2.x"
-
 "@openshift-console/dynamic-plugin-sdk-webpack@0.0.6":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@openshift-console/dynamic-plugin-sdk-webpack/-/dynamic-plugin-sdk-webpack-0.0.6.tgz#f1c0a7309ce09652f9984594049c1034954122a8"
@@ -130,6 +125,13 @@
     react-router-dom "5.2.0"
     redux "4.0.1"
     redux-thunk "2.4.0"
+
+"@openshift-console/plugin-shared@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@openshift-console/plugin-shared/-/plugin-shared-0.0.1.tgz#981ecfb2d8873265bcaf1d068dc5fe8c46df3ad8"
+  integrity sha512-sg823G7ijoE9s/jqZbR1zep/iHA2Bn0rVt+CRJ7YO+Ogc4EJQlSJFwvsQmk5rbGvpgHxi0X2CfarYTED+f2woQ==
+  dependencies:
+    classnames "2.x"
 
 "@patternfly/react-core@4.162.2":
   version "4.162.2"
