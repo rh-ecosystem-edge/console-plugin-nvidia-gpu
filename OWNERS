@@ -6,10 +6,12 @@ filters:
       - jtomasek
       - mareklibra
       - rawagner
+      - jelkosz
     reviewers:
       - jtomasek
       - mareklibra
       - rawagner
+      - jelkosz
   "^Dockerfile.*":
     labels:
       - downstream-change-needed
