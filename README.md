@@ -2,11 +2,17 @@
 
 Dynamic plugin for the OpenShift console which adds GPU capabilities.
 
+## OCP version compatibility
+| Nvidia GPU plugin      | OCP Console |
+| ---------------------- | ----------- |
+| latest                 | 4.11+       |
+| release-0.0.1          | 4.10+       |
+
 ## QuickStart
 
 ### Prerequisites
 
-- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.10+
+- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.11+
 - [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
 

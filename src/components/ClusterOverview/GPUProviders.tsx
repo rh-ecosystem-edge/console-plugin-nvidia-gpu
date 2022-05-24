@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { OverviewDetailItem } from '@openshift-console/plugin-shared';
-import { useAllGpuProviders } from '../resources/nodes';
+import { useTranslation } from '../../i18n';
+import { useGPUProviders } from '../../hooks/use-gpu-providers';
 
 const GPUProviders: React.FC = () => {
-  const { t } = useTranslation('plugin__console-plugin-nvidia-gpu');
-  const [providers, loaded, loadError] = useAllGpuProviders();
+  const { t } = useTranslation();
+  const [providers, loaded, loadError] = useGPUProviders();
 
-  let result = t('No GPUs currently detected');
+  let result = t('No GPUs detected');
   if (providers.nvidia) {
     if (providers.amd) {
       if (providers.other) {
@@ -41,7 +41,7 @@ const GPUProviders: React.FC = () => {
     <OverviewDetailItem
       title={t('GPU providers')}
       isLoading={!loaded}
-      error={!!loadError && t('Not available')}
+      error={loadError ? t('Not available') : undefined}
       // valueClassName="co-select-to-copy"
     >
       {result}

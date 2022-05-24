@@ -1,0 +1,4 @@
+.ng-workloads-card {
+    overflow: auto;
+    max-height: 30rem;
+}
