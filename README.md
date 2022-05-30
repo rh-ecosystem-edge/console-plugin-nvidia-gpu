@@ -2,6 +2,10 @@
 
 Dynamic plugin for the OpenShift console which adds GPU capabilities.
 
+## OCP version compatibility
+
+The plugin requires OpenShift console 4.10+
+
 ## QuickStart
 
 ### Prerequisites
