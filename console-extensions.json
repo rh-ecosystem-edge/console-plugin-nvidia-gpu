@@ -47,5 +47,12 @@
     "properties": {
       "component": { "$codeRef": "clusterInventory.default" }
     }
+  },
+  {
+    "type": "console.dashboards/overview/detail/item",
+    "properties": {
+      "component": { "$codeRef": "overviewDetailItem.default" },
+      "id": "detail-item-gpu-providers"
+    }
   }
 ]
