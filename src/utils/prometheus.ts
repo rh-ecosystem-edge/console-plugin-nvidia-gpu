@@ -5,7 +5,7 @@ export const getPrometheusResultScalarNumber = (
 ): number | undefined => {
   if (result?.data?.resultType === 'vector') {
     const scalarValueStr = result?.data?.result?.[0]?.value?.[1];
-    return !!scalarValueStr ? parseFloat(scalarValueStr) : undefined;
+    return scalarValueStr ? parseFloat(scalarValueStr) : undefined;
   }
 
   if (result?.data?.resultType === 'matrix') {

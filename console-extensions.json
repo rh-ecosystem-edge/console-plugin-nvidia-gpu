@@ -8,9 +8,14 @@
  */
 [
   {
-    "type": "console.flag",
+    "type": "console.flag/model",
     "properties": {
-      "handler": { "$codeRef": "gpuOperatorFeatureFlag.handler" }
+      "flag": "GPU_OPERATOR",
+      "model": {
+        "group": "nvidia.com",
+        "version": "v1",
+        "kind": "ClusterPolicy"
+      }
     }
   },
   {
@@ -19,7 +24,7 @@
       "title": "%plugin__console-plugin-nvidia-gpu~GPU%",
       "getUtilizationQuery": { "$codeRef": "clusterOverview.getGPUUtilizationQuery" },
       "getTotalQuery": { "$codeRef": "clusterOverview.getGPUTotalUtilizationQuery" },
-      "humanize": { "$codeRef": "clusterOverview.humanizeGPU" }
+      "humanize": { "$codeRef": "units.humanizeGPU" }
     },
     "flags": {
       "required": ["GPU_OPERATOR"]
@@ -30,7 +35,7 @@
     "properties": {
       "title": "%plugin__console-plugin-nvidia-gpu~GPU Power usage%",
       "getUtilizationQuery": { "$codeRef": "clusterOverview.getPowerUsageUtilizationQuery" },
-      "humanize": { "$codeRef": "clusterOverview.humanizeWatts" }
+      "humanize": { "$codeRef": "units.humanizeWatts" }
     },
     "flags": {
       "required": ["GPU_OPERATOR"]
@@ -41,7 +46,7 @@
     "properties": {
       "title": "%plugin__console-plugin-nvidia-gpu~GPU Encoder/Decoder%",
       "getUtilizationQueries": { "$codeRef": "clusterOverview.getUtilizationQueries" },
-      "humanize": { "$codeRef": "clusterOverview.humanizePercentage" }
+      "humanize": { "$codeRef": "units.humanizePercentage" }
     },
     "flags": {
       "required": ["GPU_OPERATOR"]
@@ -72,8 +77,7 @@
   {
     "type": "console.dashboards/overview/detail/item",
     "properties": {
-      "component": { "$codeRef": "overviewDetailItem.default" },
-      "id": "detail-item-gpu-providers"
+      "component": { "$codeRef": "overviewDetailItem.default" }
     },
     "flags": {
       "required": ["GPU_OPERATOR"]

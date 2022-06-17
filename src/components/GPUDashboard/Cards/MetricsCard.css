@@ -1,0 +1,7 @@
+.ng-metrics-card__graph svg {
+    overflow: visible;
+}
+
+.ng-metrics-card {
+    height: 100%
+}
