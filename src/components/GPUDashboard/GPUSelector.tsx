@@ -23,11 +23,7 @@ const GPUSelector: React.FC = () => {
     items = [<SelectOption key="disabled" value={t('No GPU found')} />];
   } else {
     items = gpus.map((gpu) => (
-      <SelectOption
-        key={gpu.uuid}
-        value={gpu.uuid}
-        description={`Node: ${gpu.nodeName}, Model: ${gpu.modelName}`}
-      />
+      <SelectOption key={gpu.uuid} value={gpu.uuid} description={`Model: ${gpu.modelName}`} />
     ));
   }
 

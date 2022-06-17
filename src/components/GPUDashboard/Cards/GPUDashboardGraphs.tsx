@@ -58,7 +58,7 @@ export const GPUDashboardGraphs: React.FC = () => {
           ariaRangeTitle={t('GPU utilization over time')}
           ariaDesc={t('Sparkline GPU utilization')}
           query={`sum(DCGM_FI_PROF_GR_ENGINE_ACTIVE{UUID="${selectedGPU?.uuid}"})`}
-          maxDomain={100}
+          maxDomain={1}
           humanize={humanizeRatio}
         />
       </GridItem>

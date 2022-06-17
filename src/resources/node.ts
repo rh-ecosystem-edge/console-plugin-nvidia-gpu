@@ -6,5 +6,6 @@ export type Node = K8sResourceCommon & {
       'nvidia.com/gpu': string;
       'amd.com/gpu'?: string;
     };
+    addresses?: { type: string; address: string }[];
   };
 };

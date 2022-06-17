@@ -187,14 +187,15 @@ const WorkloadsCard: React.FC = () => {
         selectedGPU?.uuid === m.metric['UUID'],
     );
     const currentValue = gpuMetrics?.values?.[0]?.[1];
-    const gpuUsage = currentValue !== undefined ? humanizeRatio(parseInt(currentValue)) : undefined;
+    const gpuUsage =
+      currentValue !== undefined ? humanizeRatio(parseFloat(currentValue)) : undefined;
     if (gpuUsage) {
       const podCPUMetric = getPodMetricValue(cpuMetrics, pod);
       const podMemoryMetric = getPodMetricValue(memoryMetrics, pod);
 
       let cpuUsage = undefined;
       if (podCPUMetric?.value?.[1]) {
-        const value = parseInt(podCPUMetric?.value?.[1]);
+        const value = parseFloat(podCPUMetric?.value?.[1]);
         cpuUsage = {
           string: formatCores(value),
           value,
@@ -203,7 +204,7 @@ const WorkloadsCard: React.FC = () => {
       }
 
       const memoryUsage = podMemoryMetric?.value?.[1]
-        ? humanizeBinaryBytes(parseInt(podMemoryMetric?.value?.[1]), undefined, 'MiB')
+        ? humanizeBinaryBytes(parseFloat(podMemoryMetric?.value?.[1]), undefined, 'MiB')
         : undefined;
 
       acc.push({
