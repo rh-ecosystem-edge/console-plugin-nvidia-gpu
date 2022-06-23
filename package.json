@@ -66,7 +66,8 @@
       "clusterInventory": "./components/ClusterOverview/GPUClusterInventory",
       "gpuDashboard": "./components/GPUDashboard/GPUDashboard",
       "units": "./utils/units",
-      "clusterOverview": "./utils/cluster-overview"
+      "clusterOverview": "./utils/cluster-overview",
+      "projectOverview": "./utils/project-overview"
     },
     "dependencies": {
       "@console/pluginAPI": "*"
