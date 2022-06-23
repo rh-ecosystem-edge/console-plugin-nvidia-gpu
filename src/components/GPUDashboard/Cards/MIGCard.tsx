@@ -36,6 +36,7 @@ const MIGCard = () => {
   const chartBars = [];
 
   let multiInstance = false;
+  let timeSlicing = false;
   const migStrategy = getMIGStrategy(gpuNode);
 
   if (migStrategy === 'mixed') {
@@ -69,9 +70,22 @@ const MIGCard = () => {
   } else {
     const count = gpuNode?.metadata?.labels?.['nvidia.com/gpu.count'];
     const memory = gpuNode?.metadata?.labels?.['nvidia.com/gpu.memory'];
+    const replicas = gpuNode?.metadata?.labels?.['nvidia.com/gpu.replicas'];
+
     if (count && memory) {
-      multiInstance = parseInt(count) > 1;
-      for (let i = 0; i < parseInt(count) / gpus.length; i++) {
+      const countInt = parseInt(count);
+      const replicasInt = parseInt(replicas || '0');
+
+      let instances = countInt;
+      if (countInt === 1 && replicasInt > 1) {
+        timeSlicing = true;
+        multiInstance = true;
+        instances = replicasInt;
+      } else if (countInt > 1) {
+        multiInstance = true;
+      }
+
+      for (let i = 0; i < instances / gpus.length; i++) {
         chartBars.push(
           <ChartBar
             key={i}
@@ -80,7 +94,7 @@ const MIGCard = () => {
                 name: `Instance ${i + 1}`,
                 x: '0',
                 y: memory,
-                label: `Instance size: ${humanizeBinaryBytes(parseInt(memory), 'MiB').string}`,
+                label: `Instance size: ${humanizeBinaryBytes(parseInt(memory)).string}`,
               },
             ]}
             barWidth={15}
@@ -121,7 +135,10 @@ const MIGCard = () => {
                         </SplitItem>
                       </Split>
                     </StackItem>
-                    {migStrategy && <StackItem>{`${t('MIG strategy')}: ${migStrategy}`}</StackItem>}
+                    {migStrategy === 'mixed' && (
+                      <StackItem>{`${t('MIG strategy')}: ${migStrategy}`}</StackItem>
+                    )}
+                    {timeSlicing && <StackItem>{t('Time slicing enabled')}</StackItem>}
                   </Stack>
                 </SplitItem>
               </Split>
