@@ -135,7 +135,7 @@ const MIGCard = () => {
                         </SplitItem>
                       </Split>
                     </StackItem>
-                    {migStrategy === 'mixed' && (
+                    {multiInstance && !timeSlicing && (
                       <StackItem>{`${t('MIG strategy')}: ${migStrategy}`}</StackItem>
                     )}
                     {timeSlicing && <StackItem>{t('Time slicing enabled')}</StackItem>}
