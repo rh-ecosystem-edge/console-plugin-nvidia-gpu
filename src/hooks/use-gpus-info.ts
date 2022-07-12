@@ -10,7 +10,7 @@ import { useDeepCompareMemoize } from './use-deep-memoize';
 export type GPUInfo = {
   uuid: string;
   modelName: string;
-  nodeName: string;
+  nodeIP: string;
 };
 
 /**
@@ -28,7 +28,7 @@ export const useGPUsInfo = (): [GPUInfo[], /* loaded */ boolean, /* error */ unk
       result?.data?.result?.map((res) => ({
         uuid: res.metric?.UUID,
         modelName: res.metric?.modelName,
-        nodeName: res.metric?.Hostname,
+        nodeIP: res.metric?.instance?.split(':')?.[0],
       })),
       (g) => g.uuid,
     ),
@@ -38,18 +38,18 @@ export const useGPUsInfo = (): [GPUInfo[], /* loaded */ boolean, /* error */ unk
 };
 
 export const useGPUNode = (gpu?: GPUInfo): [Node | undefined, boolean, unknown] => {
-  const [node, nodeLoaded, nodeError] = useK8sWatchResource<Node>(
-    gpu?.nodeName
+  const [nodes, nodesLoaded, nodesError] = useK8sWatchResource<Node[]>(
+    gpu?.nodeIP
       ? {
           groupVersionKind: {
             kind: 'Node',
             version: 'v1',
           },
-          name: gpu.nodeName,
-          isList: false,
+          isList: true,
         }
       : null,
   );
 
-  return [node, nodeLoaded, nodeError];
+  const node = nodes?.find((n) => n.status?.addresses?.some((a) => a.address === gpu?.nodeIP));
+  return [node, nodesLoaded, nodesError];
 };

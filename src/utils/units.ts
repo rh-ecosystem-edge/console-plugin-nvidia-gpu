@@ -221,7 +221,7 @@ export const humanizeRatio = (value: number) => {
   if (!isFinite(value) || value === 0) {
     value = 0;
   }
-  const fDigits = getDefaultFractionDigits(value);
+  const fDigits = getDefaultFractionDigits(value * 100);
 
   return {
     string: formatPercentage(value, undefined, fDigits),

@@ -58,7 +58,7 @@ const InfoCard: React.FC = () => {
             <LevelItem>
               <OverviewDetailItem
                 title={t('Node')}
-                isLoading={!gpusLoaded}
+                isLoading={loading}
                 error={gpusLoaded && (gpusError || !selectedGPU) ? t('Not available') : undefined}
               >
                 <ResourceLink
@@ -66,7 +66,7 @@ const InfoCard: React.FC = () => {
                     kind: 'Node',
                     version: 'v1',
                   }}
-                  name={selectedGPU?.nodeName}
+                  name={gpuNode?.metadata?.name}
                 />
               </OverviewDetailItem>
             </LevelItem>
