@@ -109,5 +109,16 @@
     "flags": {
       "required": ["GPU_OPERATOR"]
     }
+  },
+  {
+    "type": "console.project-overview/utilization-item",
+    "properties": {
+      "title": "%plugin__console-plugin-nvidia-gpu~GPU pod count%",
+      "getUtilizationQuery": { "$codeRef": "projectOverview.getGPUPodsQuery" },
+      "humanize": { "$codeRef": "units.humanizeNumber" }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
+    }
   }
 ]
