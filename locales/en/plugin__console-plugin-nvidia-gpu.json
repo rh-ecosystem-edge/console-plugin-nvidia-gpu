@@ -75,6 +75,7 @@
   "View events": "View events",
   "Debug container {{name}}": "Debug container {{name}}",
   "GPU Power usage": "GPU Power usage",
-  "GPU Encoder/Decoder": "GPU Encoder/Decoder",
-  "GPUs health": "GPUs health"
+  "GPUs health": "GPUs health",
+  "GPU pod count": "GPU pod count",
+  "GPU Memory": "GPU Memory"
 }

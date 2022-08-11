@@ -30,23 +30,24 @@
       "required": ["GPU_OPERATOR"]
     }
   },
+
   {
     "type": "console.cluster-overview/utilization-item",
     "properties": {
-      "title": "%plugin__console-plugin-nvidia-gpu~GPU Power usage%",
-      "getUtilizationQuery": { "$codeRef": "clusterOverview.getPowerUsageUtilizationQuery" },
-      "humanize": { "$codeRef": "units.humanizeWatts" }
+      "title": "%plugin__console-plugin-nvidia-gpu~GPU Memory%",
+      "getUtilizationQuery": { "$codeRef": "clusterOverview.getMemoryQuery" },
+      "humanize": { "$codeRef": "units.humanizePercentage" }
     },
     "flags": {
       "required": ["GPU_OPERATOR"]
     }
   },
   {
-    "type": "console.cluster-overview/multiline-utilization-item",
+    "type": "console.cluster-overview/utilization-item",
     "properties": {
-      "title": "%plugin__console-plugin-nvidia-gpu~GPU Encoder/Decoder%",
-      "getUtilizationQueries": { "$codeRef": "clusterOverview.getUtilizationQueries" },
-      "humanize": { "$codeRef": "units.humanizePercentage" }
+      "title": "%plugin__console-plugin-nvidia-gpu~GPU Power usage%",
+      "getUtilizationQuery": { "$codeRef": "clusterOverview.getPowerUsageUtilizationQuery" },
+      "humanize": { "$codeRef": "units.humanizeWatts" }
     },
     "flags": {
       "required": ["GPU_OPERATOR"]
