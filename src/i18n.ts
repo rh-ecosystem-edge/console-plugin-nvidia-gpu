@@ -7,10 +7,10 @@ import { useTranslation as useReactI18NextTranslation } from 'react-i18next';
 // that they do not need this file.
 
 // t('plugin__console-plugin-nvidia-gpu~GPU Power usage')
-// t('plugin__console-plugin-nvidia-gpu~GPU Encoder/Decoder')
 // t('plugin__console-plugin-nvidia-gpu~GPUs')
 // t('plugin__console-plugin-nvidia-gpu~GPUs health')
 // t('plugin__console-plugin-nvidia-gpu~GPU pod count')
+// t('plugin__console-plugin-nvidia-gpu~GPU Memory')
 
 export function useTranslation() {
   return useReactI18NextTranslation('plugin__console-plugin-nvidia-gpu');
