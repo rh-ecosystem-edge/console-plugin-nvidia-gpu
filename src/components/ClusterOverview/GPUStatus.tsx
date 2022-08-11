@@ -96,12 +96,12 @@ const getTemperatureHealth: SubsystemHealthHandler = (responses) => {
 
   temperatures.sort((a, b) => b - a);
 
-  if (temperatures[0] > 70) {
+  if (temperatures[0] > 110) {
     return {
       state: HealthState.ERROR,
       message: 'Danger',
     };
-  } else if (temperatures[0] > 60) {
+  } else if (temperatures[0] > 95) {
     return {
       state: HealthState.WARNING,
       message: 'Warning',
