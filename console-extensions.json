@@ -121,5 +121,14 @@
     "flags": {
       "required": ["GPU_OPERATOR"]
     }
+  },
+  {
+    "type": "console.project-overview/inventory-item",
+    "properties": {
+      "component": { "$codeRef": "projectInventory.default" }
+    },
+    "flags": {
+      "required": ["GPU_OPERATOR"]
+    }
   }
 ]
