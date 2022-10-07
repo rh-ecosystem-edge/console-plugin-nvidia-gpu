@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: latest
 description: |
-  Red Hat OpenShift dynamic console plugin that leverages the NVIDIA GPU operator metrics and serves the respective console-extensions. Requires Red Hat OpenShift version 4.10+
+  Red Hat OpenShift dynamic console plugin that leverages the NVIDIA GPU operator metrics and serves the respective console-extensions. Requires Red Hat OpenShift version 4.11+
 name: console-plugin-nvidia-gpu
 sources:
   - https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
