@@ -9,7 +9,7 @@ in order to serve the respective [console-extensions](https://github.com/openshi
 
 ### Prerequisites
 
-- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.10+
+- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.11+
 - [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
 
@@ -30,10 +30,13 @@ $ kubectl -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugi
 $ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}"
 
 # if not, then run the following to enable the plugin
-$ kubectl patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["console-plugin-nvidia-gpu"] } }' --type=merge
+$ oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["console-plugin-nvidia-gpu"] } }' --type=merge
 
 # if yes, then run the following to enable the plugin
-$ kubectl patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "console-plugin-nvidia-gpu" }]' --type=json
+$ oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "console-plugin-nvidia-gpu" }]' --type=json
+
+# add the required DCGM Exporter metrics ConfigMap to the existing NVIDIA operator ClusterPolicy CR
+$ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "dcgmExporter": { "config": { "name": "console-plugin-nvidia-gpu" } } } }' --type=merge
 ```
 
 ### Helm Tests
