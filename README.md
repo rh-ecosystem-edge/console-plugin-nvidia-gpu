@@ -20,11 +20,11 @@ in order to serve the respective [console-extensions](https://github.com/openshi
 $ helm repo add rh-ecosystem-edge https://rh-ecosystem-edge.github.io/console-plugin-nvidia-gpu
 $ helm repo update
 
-# install Helm chart in the default NVIDIA GPU operator namespace
+# install the Helm chart in the default NVIDIA GPU operator namespace
 $ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edge/console-plugin-nvidia-gpu
 
 # view deployed resources
-$ kubectl -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
+$ oc -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
 
 # check if a plugins field is specified
 $ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}"
