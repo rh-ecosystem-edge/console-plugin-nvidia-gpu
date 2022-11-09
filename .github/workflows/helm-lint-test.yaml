@@ -1,6 +1,9 @@
 name: Lint and test Helm chart
 
-on: pull_request
+on:
+  pull_request:
+    paths:
+    - 'deployment/**/*'
 
 jobs:
   lint-test:
