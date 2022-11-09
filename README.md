@@ -60,4 +60,3 @@ run:
  - Clone this repo
  - Pull all required dependencies by running `yarn install`
  - Run the development mode by running `yarn start`
-
