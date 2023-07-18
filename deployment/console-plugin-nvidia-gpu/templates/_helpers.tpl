@@ -42,7 +42,7 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/component: {{ include "console-plugin-nvidia-gpu.name" . }}
-app.kubernetes.io/instance: {{ include "console-plugin-nvidia-gpu.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/part-of: {{ include "console-plugin-nvidia-gpu.name" . }}
 {{- end }}
 
@@ -51,7 +51,6 @@ Selector labels
 */}}
 {{- define "console-plugin-nvidia-gpu.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "console-plugin-nvidia-gpu.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
