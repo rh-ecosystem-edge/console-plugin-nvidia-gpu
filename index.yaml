@@ -2,12 +2,12 @@ apiVersion: v1
 entries:
   console-plugin-nvidia-gpu:
   - apiVersion: v2
-    appVersion: release-0.0.1
-    created: "2022-10-07T17:37:31.86668344+02:00"
+    appVersion: latest
+    created: "2024-04-22T17:24:41.229959-06:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
-      Red Hat OpenShift version 4.10+'
-    digest: 5e5dbba6dca26a1b4816a94e33655b223d2b8f708b88efbcd4f6f5ec93a31534
+      Red Hat OpenShift version 4.11+ '
+    digest: 9104bbae591a8f109aac8070d4f2cd7bc661ce6ecf57b38a34980dd76c0fee28
     home: https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
     keywords:
     - openshift-console
@@ -21,14 +21,14 @@ entries:
     - https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
     type: application
     urls:
-    - console-plugin-nvidia-gpu-0.1.0.tgz
-    version: 0.1.0
+    - console-plugin-nvidia-gpu-0.2.4.tgz
+    version: 0.2.4
   - apiVersion: v2
     appVersion: latest
-    created: "2022-10-07T17:37:31.86668344+02:00"
+    created: "2024-04-22T17:24:41.229627-06:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
-      Red Hat OpenShift version 4.11+'
+      Red Hat OpenShift version 4.10+ '
     digest: 5e5dbba6dca26a1b4816a94e33655b223d2b8f708b88efbcd4f6f5ec93a31534
     home: https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
     keywords:
@@ -45,4 +45,26 @@ entries:
     urls:
     - console-plugin-nvidia-gpu-0.2.3.tgz
     version: 0.2.3
-generated: "2022-10-07T17:37:31.866089931+02:00"
+  - apiVersion: v2
+    appVersion: release-0.0.1
+    created: "2024-04-22T17:24:41.229275-06:00"
+    description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
+      GPU operator metrics and serves the respective console-extensions. Requires
+      Red Hat OpenShift version 4.10+ '
+    digest: 7e5e38fdbf160bdb8909a6455a0b81410f79690880ec4904f8ba8bf9eccca15b
+    home: https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
+    keywords:
+    - openshift-console
+    - nvidia
+    - gpu
+    maintainers:
+    - email: mres@redhat.com
+      name: mresvanis
+    name: console-plugin-nvidia-gpu
+    sources:
+    - https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
+    type: application
+    urls:
+    - console-plugin-nvidia-gpu-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-04-22T17:24:41.228497-06:00"
