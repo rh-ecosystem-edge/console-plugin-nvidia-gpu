@@ -1,13 +1,16 @@
-apiVersion: console.openshift.io/v1alpha1
+apiVersion: console.openshift.io/v1
 kind: ConsolePlugin
 metadata:
   name: {{ include "console-plugin-nvidia-gpu.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "console-plugin-nvidia-gpu.labels" . | nindent 4 }}
 spec:
   displayName: 'Console Plugin NVIDIA GPU Template'
-  service:
-    name: {{ include "console-plugin-nvidia-gpu.fullname" . }}
-    namespace: {{ .Release.Namespace }}
-    port: 9443
-    basePath: '/'
+  backend:
+    type: Service
+    service:
+      name: {{ include "console-plugin-nvidia-gpu.fullname" . }}
+      namespace: {{ .Release.Namespace }}
+      port: {{ .Values.plugin.port }}
+      basePath: {{ .Values.plugin.basePath }}
