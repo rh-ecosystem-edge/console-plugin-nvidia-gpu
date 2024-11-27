@@ -3,7 +3,29 @@ entries:
   console-plugin-nvidia-gpu:
   - apiVersion: v2
     appVersion: latest
-    created: "2024-04-22T17:24:41.229959-06:00"
+    created: "2024-11-27T11:50:24.708753563+02:00"
+    description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
+      GPU operator metrics and serves the respective console-extensions. Requires
+      Red Hat OpenShift version 4.12+ '
+    digest: 8807cf44b715cdac33ae8298d16183eccc90604aea4658de08be87463a3282ec
+    home: https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
+    keywords:
+    - openshift-console
+    - nvidia
+    - gpu
+    maintainers:
+    - email: mres@redhat.com
+      name: mresvanis
+    name: console-plugin-nvidia-gpu
+    sources:
+    - https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
+    type: application
+    urls:
+    - console-plugin-nvidia-gpu-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-27T11:50:24.708575231+02:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.11+ '
@@ -25,7 +47,7 @@ entries:
     version: 0.2.4
   - apiVersion: v2
     appVersion: latest
-    created: "2024-04-22T17:24:41.229627-06:00"
+    created: "2024-11-27T11:50:24.708361666+02:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.10+ '
@@ -47,7 +69,7 @@ entries:
     version: 0.2.3
   - apiVersion: v2
     appVersion: release-0.0.1
-    created: "2024-04-22T17:24:41.229275-06:00"
+    created: "2024-11-27T11:50:24.708139533+02:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.10+ '
@@ -67,4 +89,4 @@ entries:
     urls:
     - console-plugin-nvidia-gpu-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-22T17:24:41.228497-06:00"
+generated: "2024-11-27T11:50:24.707851226+02:00"
