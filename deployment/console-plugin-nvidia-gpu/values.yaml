@@ -27,3 +27,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+plugin:
+  port: 9443
+  basePath: /

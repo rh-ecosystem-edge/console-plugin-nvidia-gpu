@@ -1,8 +1,7 @@
 
 FROM registry.access.redhat.com/ubi8/nodejs-16:latest AS builder
 USER root
-RUN npm install -g corepack
-RUN corepack enable yarn
+RUN command -v yarn || npm i -g yarn
 
 COPY . /opt/app-root/src
 RUN yarn install --frozen-lockfile && yarn build
