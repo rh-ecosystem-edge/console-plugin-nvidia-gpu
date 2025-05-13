@@ -20,7 +20,7 @@ export type GPUInfo = {
 export const useGPUsInfo = (): [GPUInfo[], /* loaded */ boolean, /* error */ unknown] => {
   const [result, loaded, error] = usePrometheusPoll({
     endpoint: PrometheusEndpoint.QUERY,
-    query: 'DCGM_FI_PROF_GR_ENGINE_ACTIVE',
+    query: 'DCGM_FI_DEV_GPU_UTIL',
   });
 
   const gpus = useDeepCompareMemoize(

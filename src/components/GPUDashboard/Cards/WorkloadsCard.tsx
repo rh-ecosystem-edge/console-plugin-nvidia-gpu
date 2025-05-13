@@ -127,7 +127,7 @@ const WorkloadsCard: React.FC = () => {
   const [gpuMemoryMetrics, gpuMetricsLoaded, gpuMetricsError] = usePrometheusPoll({
     endpoint: PrometheusEndpoint.QUERY_RANGE,
     query:
-      'sum (DCGM_FI_PROF_GR_ENGINE_ACTIVE{exported_pod=~".+"}) by (exported_namespace, exported_pod, UUID)',
+      'sum (DCGM_FI_DEV_GPU_UTIL{exported_pod=~".+"}) by (exported_namespace, exported_pod, UUID)',
     timespan: ONE_DAY,
   });
 
