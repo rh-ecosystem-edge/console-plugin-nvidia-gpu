@@ -17,7 +17,6 @@ import {
   CardTitle,
   EmptyState,
   EmptyStateBody,
-  EmptyStateIcon,
 } from '@patternfly/react-core';
 import { sortable } from '@patternfly/react-table';
 import { CubesIcon } from '@patternfly/react-icons';
@@ -41,19 +40,19 @@ const NoDataEmptyMsg = () => {
   const { t } = useTranslation();
   return (
     <EmptyState>
-      <EmptyStateIcon icon={CubesIcon} />
+      <CubesIcon />
       <EmptyStateBody>{t('No workloads found')}</EmptyStateBody>
     </EmptyState>
   );
 };
 
 const tableColumnInfo = [
-  { className: 'co-break-word', id: 'name' },
-  { className: 'co-break-word', id: 'namespace' },
-  { className: 'co-break-word', id: 'status' },
-  { className: 'co-break-word', id: 'cpu' },
-  { className: 'co-break-word', id: 'memory' },
-  { className: 'co-break-word', id: 'gpu' },
+  { className: 'ng-break-word', id: 'name' },
+  { className: 'ng-break-word', id: 'namespace' },
+  { className: 'ng-break-word', id: 'status' },
+  { className: 'ng-break-word', id: 'cpu' },
+  { className: 'ng-break-word', id: 'memory' },
+  { className: 'ng-break-word', id: 'gpu' },
 ];
 
 const getPodMetricValue = (metrics: PrometheusResponse | undefined, pod: Pod) =>

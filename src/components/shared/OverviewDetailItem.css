@@ -1,0 +1,18 @@
+.ng-overview-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pf-v6-global--spacer--xs);
+}
+
+.ng-overview-detail-item__title {
+  font-size: var(--pf-v6-global--FontSize--sm);
+  font-weight: var(--pf-v6-global--FontWeight--semi-bold);
+  color: var(--pf-v6-global--Color--200);
+}
+
+.ng-overview-detail-item__value {
+  font-size: var(--pf-v6-global--FontSize--md);
+  color: var(--pf-v6-global--Color--100);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}

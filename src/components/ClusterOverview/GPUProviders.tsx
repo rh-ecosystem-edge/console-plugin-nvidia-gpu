@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { OverviewDetailItem } from '@openshift-console/plugin-shared';
+import { OverviewDetailItem } from '../shared/OverviewDetailItem';
 import { useTranslation } from '../../i18n';
 import { useGPUProviders } from '../../hooks/use-gpu-providers';
 

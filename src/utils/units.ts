@@ -177,7 +177,7 @@ const humanize = (
 };
 
 type HumanizeFunc = (
-  value: number,
+  value: string | number,
   initialUnit?: string,
   preferredUnit?: string,
 ) => {
@@ -187,28 +187,28 @@ type HumanizeFunc = (
 };
 
 export const humanizeBinaryBytesWithoutB: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'binaryBytesWithoutB', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'binaryBytesWithoutB', true, initialUnit, preferredUnit);
 export const humanizeBinaryBytes: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'binaryBytes', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'binaryBytes', true, initialUnit, preferredUnit);
 export const humanizeDecimalBytes: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'decimalBytes', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'decimalBytes', true, initialUnit, preferredUnit);
 export const humanizeDecimalBytesPerSec: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'decimalBytesPerSec', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'decimalBytesPerSec', true, initialUnit, preferredUnit);
 export const humanizePacketsPerSec: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'packetsPerSec', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'packetsPerSec', true, initialUnit, preferredUnit);
 export const humanizeNumber: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'numeric', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'numeric', true, initialUnit, preferredUnit);
 export const humanizeNumberSI: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'SI', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'SI', true, initialUnit, preferredUnit);
 export const humanizeSeconds: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'seconds', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'seconds', true, initialUnit, preferredUnit);
 export const humanizeWatts: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'watts', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'watts', true, initialUnit, preferredUnit);
 export const humanizeHertz: HumanizeFunc = (v, initialUnit, preferredUnit) =>
-  humanize(v, 'hertz', true, initialUnit, preferredUnit);
+  humanize(Number(v), 'hertz', true, initialUnit, preferredUnit);
 export const humanizeCpuCores: HumanizeFunc = (v) => {
-  const value = v < 1 ? round(v * 1000) : v;
-  const unit = v < 1 ? 'm' : '';
+  const value = Number(v) < 1 ? round(Number(v) * 1000) : Number(v);
+  const unit = Number(v) < 1 ? 'm' : '';
   return {
     string: `${formatValue(value)}${unit}`,
     unit,
@@ -216,29 +216,31 @@ export const humanizeCpuCores: HumanizeFunc = (v) => {
   };
 };
 
-export const humanizeRatio = (value: number) => {
+export const humanizeRatio: Humanize = (value) => {
+  const numValue = Number(value);
   // 2nd check converts -0 to 0.
-  if (!isFinite(value) || value === 0) {
+  if (!isFinite(numValue) || numValue === 0) {
     value = 0;
   }
-  const fDigits = getDefaultFractionDigits(value * 100);
+  const fDigits = getDefaultFractionDigits(numValue * 100);
 
   return {
-    string: formatPercentage(value, undefined, fDigits),
+    string: formatPercentage(numValue, undefined, fDigits),
     unit: '%',
-    value: round(value, fDigits),
+    value: round(numValue, fDigits),
   };
 };
 
-export const humanizePercentage = (value: number) => {
+export const humanizePercentage: Humanize = (value) => {
+  const numValue = Number(value);
   // 2nd check converts -0 to 0.
-  if (!isFinite(value) || value === 0) {
+  if (!isFinite(numValue) || numValue === 0) {
     value = 0;
   }
   return {
-    string: formatPercentage(value / 100),
+    string: formatPercentage(numValue / 100),
     unit: '%',
-    value: round(value, 1),
+    value: round(numValue, 1),
   };
 };
 
