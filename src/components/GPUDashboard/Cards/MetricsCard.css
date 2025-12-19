@@ -5,3 +5,7 @@
 .ng-metrics-card {
     height: 100%
 }
+
+.ng-metrics-card__title {
+    text-align: center;
+}

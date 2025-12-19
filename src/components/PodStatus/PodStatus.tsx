@@ -1,8 +1,7 @@
 /* eslint-disable */
 import * as React from 'react';
-import { TextContent, Text, TextVariants, Divider, Popover, Button } from '@patternfly/react-core';
+import { Divider, Popover, Button, Content } from '@patternfly/react-core';
 import { Link } from 'react-router-dom';
-import { ResourceLink } from '@openshift-console/dynamic-plugin-sdk';
 import Status from '@openshift-console/dynamic-plugin-sdk/lib/app/components/status/Status';
 import * as _ from 'lodash';
 import { useTranslation } from '../../i18n';
@@ -114,32 +113,31 @@ export const PodStatus: React.FC<PodStatusProps> = ({ pod }) => {
       headerTitle = t('Pod crash loop back-off');
       const containers: any[] = pod.spec.containers;
       footerLinks = (
-        <TextContent>
-          <Text component={TextVariants.p}>
+        <>
+          <Content component="p">
             {t(
               'CrashLoopBackOff indicates that the application within the container is failing to start properly.',
             )}
-          </Text>
-          <Text component={TextVariants.p}>
+          </Content>
+          <Content component="p">
             {t('To troubleshoot, view logs and events, then debug in terminal.')}
-          </Text>
-          <Text component={TextVariants.p}>
-            <ResourceLink></ResourceLink>
-            <Link to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.nam}/logs`}>
+          </Content>
+          <Content component="p">
+            <Link to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.name}/logs`}>
               {t('View logs')}
             </Link>
             &emsp;
-            <Link to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.nam}/logs`}>
+            <Link to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.name}/events`}>
               {t('View events')}
             </Link>
-          </Text>
+          </Content>
           <Divider />
           {containers.map((container) => {
             if (isContainerCrashLoopBackOff(pod, container.name) && !isWindowsPod(pod)) {
               return (
                 <div key={container.name}>
                   <Link
-                    to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.nam}/containers/${container.name}/debug`}
+                    to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.name}/containers/${container.name}/debug`}
                     data-test={`popup-debug-container-link-${container.name}`}
                   >
                     {t('Debug container {{name}}', { name: container.name })}
@@ -148,7 +146,7 @@ export const PodStatus: React.FC<PodStatusProps> = ({ pod }) => {
               );
             }
           })}
-        </TextContent>
+        </>
       );
     }
 

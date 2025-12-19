@@ -1,0 +1,22 @@
+.ng-overview-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pf-t--global--spacer--gap--sm);
+}
+
+.ng-overview-detail-item__title {
+  font-size: var(--pf-t--global--font--size--body--sm);
+  font-weight: var(--pf-t--global--font--weight--body--bold);
+  color: var(--pf-t--global--text--color--subtle);
+}
+
+.ng-overview-detail-item__value {
+  font-size: var(--pf-t--global--font--size--body--default);
+  color: var(--pf-t--global--text--color--regular);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.ng-overview-detail-item__error {
+  color: var(--pf-t--global--text--color--status--danger--default);
+}

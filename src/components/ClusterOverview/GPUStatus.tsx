@@ -13,8 +13,9 @@ import {
   SubsystemHealth,
 } from '@openshift-console/dynamic-plugin-sdk/lib/extensions/dashboard-types';
 import { Link } from 'react-router-dom';
-import { global_palette_green_500 as okColor } from '@patternfly/react-tokens/dist/js/global_palette_green_500';
 import { useTranslation } from '../../i18n';
+
+const okColor = 'var(--pf-t--global--color--status--success--default, #3e8635)';
 
 const GPUStatus: React.FC<PrometheusHealthPopupProps> = ({ responses }) => {
   const { t } = useTranslation();
@@ -111,7 +112,7 @@ const getTemperatureHealth: SubsystemHealthHandler = (responses) => {
   return {
     state: HealthState.OK,
     message: 'Healthy',
-    icon: <CheckCircleIcon color={okColor.value} />,
+    icon: <CheckCircleIcon color={okColor} />,
   };
 };
 
@@ -146,7 +147,7 @@ const getOperatorHealth: SubsystemHealthHandler = (responses) => {
     case '1':
       state = HealthState.OK;
       message = 'Healthy';
-      icon = <CheckCircleIcon color={okColor.value} />;
+      icon = <CheckCircleIcon color={okColor} />;
       break;
     case '-1':
       state = HealthState.NOT_AVAILABLE;

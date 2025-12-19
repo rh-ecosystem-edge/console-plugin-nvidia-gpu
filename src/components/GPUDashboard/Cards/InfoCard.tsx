@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, CardBody, DescriptionList, Level, LevelItem } from '@patternfly/react-core';
-import { OverviewDetailItem } from '@openshift-console/plugin-shared';
+import { OverviewDetailItem } from '../../shared/OverviewDetailItem';
 import { ResourceLink } from '@openshift-console/dynamic-plugin-sdk';
 import { useGPUNode } from '../../../hooks/use-gpus-info';
 import { GPUDashboardContext } from '../GPUDashboardContext';

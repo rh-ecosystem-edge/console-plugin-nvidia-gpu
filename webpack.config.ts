@@ -1,23 +1,26 @@
 /* eslint-env node */
 
+import * as path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
-import * as CopyPlugin from 'copy-webpack-plugin';
-import * as path from 'path';
 import { ConsoleRemotePlugin } from '@openshift-console/dynamic-plugin-sdk-webpack';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const isProd = process.env.NODE_ENV === 'production';
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
 }
 
 const config: Configuration = {
-  mode: 'development',
-  context: path.resolve(__dirname, 'src'),
+  mode: isProd ? 'production' : 'development',
   entry: {},
+  context: path.resolve(__dirname, 'src'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name]-bundle.js',
-    chunkFilename: '[name]-chunk.js',
+    filename: isProd ? '[name]-bundle-[hash].min.js' : '[name]-bundle.js',
+    chunkFilename: isProd ? '[name]-chunk-[chunkhash].min.js' : '[name]-chunk.js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -26,7 +29,7 @@ const config: Configuration = {
     rules: [
       {
         test: /\.(jsx?|tsx?)$/,
-        exclude: /node_modules/,
+        exclude: /\/node_modules\//,
         use: [
           {
             loader: 'ts-loader',
@@ -37,14 +40,20 @@ const config: Configuration = {
         ],
       },
       {
-        test: /\.s?(css)$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff2?|ttf|eot|otf)(\?.*$|$)/,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/[name].[ext]',
+          filename: isProd ? 'assets/[contenthash][ext]' : 'assets/[name][ext]',
+        },
+      },
+      {
+        test: /\.(m?js)$/,
+        resolve: {
+          fullySpecified: false,
         },
       },
     ],
@@ -52,6 +61,7 @@ const config: Configuration = {
   devServer: {
     static: './dist',
     port: 9001,
+    allowedHosts: 'all',
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
@@ -63,27 +73,15 @@ const config: Configuration = {
   },
   plugins: [
     new ConsoleRemotePlugin(),
-    new CopyPlugin({
-      patterns: [{ from: '../locales', to: '../dist/locales' }],
+    new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve(__dirname, 'locales'), to: 'locales' }],
     }),
   ],
-  devtool: 'source-map',
+  devtool: isProd ? false : 'source-map',
   optimization: {
-    chunkIds: 'named',
-    minimize: false,
+    chunkIds: isProd ? 'deterministic' : 'named',
+    minimize: isProd,
   },
 };
-
-if (process.env.NODE_ENV === 'production') {
-  config.mode = 'production';
-  if (config.output) {
-    config.output.filename = '[name]-bundle-[hash].min.js';
-    config.output.chunkFilename = '[name]-chunk-[chunkhash].min.js';
-  }
-  if (config.optimization) {
-    config.optimization.chunkIds = 'deterministic';
-    config.optimization.minimize = true;
-  }
-}
 
 export default config;
