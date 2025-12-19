@@ -7,7 +7,6 @@ import {
   humanizeDegrees,
   humanizeHertz,
   humanizePercentage,
-  humanizeRatio,
   humanizeWatts,
 } from '../../../utils/units';
 import { useTranslation } from '../../../i18n';
@@ -17,7 +16,7 @@ import { useTranslation } from '../../../i18n';
 //
 
 /*
- these are ok: 
+ these are ok:
     DCGM_FI_DEV_GPU_UTIL, gauge, gpu utilization.
     DCGM_FI_DEV_POWER_USAGE, gauge, power usage.
     DCGM_FI_DEV_GPU_TEMP, gauge, gpu temp.
@@ -32,7 +31,7 @@ import { useTranslation } from '../../../i18n';
 */
 
 /* Used metrics
-    DCGM_FI_PROF_GR_ENGINE_ACTIVE, gauge, gpu utilization.
+    DCGM_FI_DEV_GPU_UTIL, gauge, gpu utilization.
     DCGM_FI_DEV_MEM_COPY_UTIL, gauge, mem utilization.
     DCGM_FI_DEV_ENC_UTIL, gauge, enc utilization.
     DCGM_FI_DEV_DEC_UTIL, gauge, dec utilization.
@@ -57,9 +56,9 @@ export const GPUDashboardGraphs: React.FC = () => {
           ariaTitle={t('Donut GPU utilization')}
           ariaRangeTitle={t('GPU utilization over time')}
           ariaDesc={t('Sparkline GPU utilization')}
-          query={`sum(DCGM_FI_PROF_GR_ENGINE_ACTIVE{UUID="${selectedGPU?.uuid}"})`}
-          maxDomain={1}
-          humanize={humanizeRatio}
+          query={`sum(DCGM_FI_DEV_GPU_UTIL{UUID="${selectedGPU?.uuid}"})`}
+          maxDomain={100}
+          humanize={humanizePercentage}
         />
       </GridItem>
       <GridItem span={6} lg={3}>
