@@ -6,14 +6,69 @@ metadata:
     {{- include "console-plugin-nvidia-gpu.labels" . | nindent 4 }}
 data:
   dcgm-metrics.csv: |
-    DCGM_FI_PROF_GR_ENGINE_ACTIVE, gauge, gpu utilization.
-    DCGM_FI_DEV_MEM_COPY_UTIL, gauge, mem utilization.
-    DCGM_FI_DEV_ENC_UTIL, gauge, enc utilization.
-    DCGM_FI_DEV_DEC_UTIL, gauge, dec utilization.
-    DCGM_FI_DEV_POWER_USAGE, gauge, power usage.
-    DCGM_FI_DEV_POWER_MGMT_LIMIT_MAX, gauge, power mgmt limit.
-    DCGM_FI_DEV_GPU_TEMP, gauge, gpu temp.
-    DCGM_FI_DEV_SM_CLOCK, gauge, sm clock.
-    DCGM_FI_DEV_MAX_SM_CLOCK, gauge, max sm clock.
-    DCGM_FI_DEV_MEM_CLOCK, gauge, mem clock.
-    DCGM_FI_DEV_MAX_MEM_CLOCK, gauge, max mem clock.
+    # This configuration replaces the default DCGM metrics included in the dcgm-exporter image.
+    # The default metrics are defined in /etc/dcgm-exporter/dcp-metrics-included.csv
+    #
+    # Note: When a custom metrics ConfigMap is provided, it completely overrides the defaults.
+    # This file includes all metrics from the default set plus additional metrics required
+    # by the console plugin.
+    #
+    # Default metrics may change between dcgm-exporter versions. Last synced with:
+    # dcgm-exporter default dcp-metrics-included.csv
+
+    # Clocks
+    DCGM_FI_DEV_SM_CLOCK, gauge, SM clock frequency (in MHz).
+    DCGM_FI_DEV_MEM_CLOCK, gauge, Memory clock frequency (in MHz).
+
+    # Temperature
+    DCGM_FI_DEV_MEMORY_TEMP, gauge, Memory temperature (in C).
+    DCGM_FI_DEV_GPU_TEMP, gauge, GPU temperature (in C).
+
+    # Power
+    DCGM_FI_DEV_POWER_USAGE, gauge, Power draw (in W).
+    DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION, counter, Total energy consumption since boot (in mJ).
+
+    # PCIE
+    DCGM_FI_DEV_PCIE_REPLAY_COUNTER, counter, Total number of PCIe retries.
+
+    # Utilization
+    DCGM_FI_DEV_GPU_UTIL, gauge, GPU utilization (in %).
+    DCGM_FI_DEV_MEM_COPY_UTIL, gauge, Memory utilization (in %).
+    DCGM_FI_DEV_ENC_UTIL, gauge, Encoder utilization (in %).
+    DCGM_FI_DEV_DEC_UTIL, gauge, Decoder utilization (in %).
+
+    # Errors and violations
+    DCGM_FI_DEV_XID_ERRORS, gauge, Value of the last XID error encountered.
+
+    # Memory usage
+    DCGM_FI_DEV_FB_FREE, gauge, Framebuffer memory free (in MiB).
+    DCGM_FI_DEV_FB_USED, gauge, Framebuffer memory used (in MiB).
+    DCGM_FI_DEV_FB_RESERVED, gauge, Framebuffer memory reserved (in MiB).
+
+    # NVLink
+    DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL, counter, Total number of NVLink bandwidth counters for all lanes.
+
+    # VGPU License status
+    DCGM_FI_DEV_VGPU_LICENSE_STATUS, gauge, vGPU License status
+
+    # Remapped rows
+    DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS, counter, Number of remapped rows for uncorrectable errors
+    DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS, counter, Number of remapped rows for correctable errors
+    DCGM_FI_DEV_ROW_REMAP_FAILURE, gauge, Whether remapping of rows has failed
+
+    # Static configuration (labels)
+    DCGM_FI_DRIVER_VERSION, label, Driver Version
+
+    # DCP metrics
+    DCGM_FI_PROF_GR_ENGINE_ACTIVE, gauge, Ratio of time the graphics engine is active.
+    DCGM_FI_PROF_PIPE_TENSOR_ACTIVE, gauge, Ratio of cycles the tensor (HMMA) pipe is active.
+    DCGM_FI_PROF_DRAM_ACTIVE, gauge, Ratio of cycles the device memory interface is active sending or receiving data.
+    DCGM_FI_PROF_PCIE_TX_BYTES, gauge, The rate of data transmitted over the PCIe bus - including both protocol headers and data payloads - in bytes per second.
+    DCGM_FI_PROF_PCIE_RX_BYTES, gauge, The rate of data received over the PCIe bus - including both protocol headers and data payloads - in bytes per second.
+
+    # ========================================
+    # Additional metrics required by console plugin (not in default dcp-metrics-included.csv):
+    # ========================================
+    DCGM_FI_DEV_POWER_MGMT_LIMIT_MAX, gauge, Maximum power management limit.
+    DCGM_FI_DEV_MAX_SM_CLOCK, gauge, Maximum SM clock.
+    DCGM_FI_DEV_MAX_MEM_CLOCK, gauge, Maximum memory clock.

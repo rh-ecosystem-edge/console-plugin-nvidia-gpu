@@ -17,7 +17,6 @@ import {
   CardTitle,
   EmptyState,
   EmptyStateBody,
-  EmptyStateIcon,
 } from '@patternfly/react-core';
 import { sortable } from '@patternfly/react-table';
 import { CubesIcon } from '@patternfly/react-icons';
@@ -41,7 +40,7 @@ const NoDataEmptyMsg = () => {
   const { t } = useTranslation();
   return (
     <EmptyState>
-      <EmptyStateIcon icon={CubesIcon} />
+      <CubesIcon />
       <EmptyStateBody>{t('No workloads found')}</EmptyStateBody>
     </EmptyState>
   );
