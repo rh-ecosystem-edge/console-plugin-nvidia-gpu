@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as React from 'react';
-import { TextContent, Text, TextVariants, Divider, Popover, Button } from '@patternfly/react-core';
+import { Divider, Popover, Button } from '@patternfly/react-core';
 import { Link } from 'react-router-dom';
 import { ResourceLink } from '@openshift-console/dynamic-plugin-sdk';
 import Status from '@openshift-console/dynamic-plugin-sdk/lib/app/components/status/Status';
@@ -114,16 +114,16 @@ export const PodStatus: React.FC<PodStatusProps> = ({ pod }) => {
       headerTitle = t('Pod crash loop back-off');
       const containers: any[] = pod.spec.containers;
       footerLinks = (
-        <TextContent>
-          <Text component={TextVariants.p}>
+        <div>
+          <p>
             {t(
               'CrashLoopBackOff indicates that the application within the container is failing to start properly.',
             )}
-          </Text>
-          <Text component={TextVariants.p}>
+          </p>
+          <p>
             {t('To troubleshoot, view logs and events, then debug in terminal.')}
-          </Text>
-          <Text component={TextVariants.p}>
+          </p>
+          <p>
             <ResourceLink></ResourceLink>
             <Link to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.nam}/logs`}>
               {t('View logs')}
@@ -132,7 +132,7 @@ export const PodStatus: React.FC<PodStatusProps> = ({ pod }) => {
             <Link to={`/k8s/ns/${pod.metadata.namespace}/pods/${pod.metadata.nam}/logs`}>
               {t('View events')}
             </Link>
-          </Text>
+          </p>
           <Divider />
           {containers.map((container) => {
             if (isContainerCrashLoopBackOff(pod, container.name) && !isWindowsPod(pod)) {
@@ -148,7 +148,7 @@ export const PodStatus: React.FC<PodStatusProps> = ({ pod }) => {
               );
             }
           })}
-        </TextContent>
+        </div>
       );
     }
 

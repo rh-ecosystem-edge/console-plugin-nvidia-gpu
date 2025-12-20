@@ -23,23 +23,31 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.podSecurityContext }}
       securityContext:
-        runAsNonRoot: true
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- with .Values.containerSecurityContext }}
         securityContext:
-          allowPrivilegeEscalation: false
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         ports:
         - containerPort: 9443
           protocol: TCP
         volumeMounts:
         - name: plugin-serving-cert
           readOnly: true
-          mountPath: /var/serving-cert
+          mountPath: /var/cert
+        - name: nginx-conf
+          readOnly: true
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml .Values.resources | nindent 10 }}
       volumes:
       - name: plugin-serving-cert
         secret:
@@ -47,7 +55,7 @@ spec:
           defaultMode: 420
       - name: nginx-conf
         configMap:
-          name: nginx-conf
+          name: {{ include "console-plugin-nvidia-gpu.fullname" . }}-config
           defaultMode: 420
       restartPolicy: Always
       dnsPolicy: ClusterFirst
