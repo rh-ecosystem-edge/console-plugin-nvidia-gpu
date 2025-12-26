@@ -57,9 +57,34 @@ app.kubernetes.io/name: {{ include "console-plugin-nvidia-gpu.name" . }}
 Create the name of the service account to use
 */}}
 {{- define "console-plugin-nvidia-gpu.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "console-plugin-nvidia-gpu.fullname" .) .Values.serviceAccount.name }}
+{{- if .Values.plugin.serviceAccount.create }}
+{{- default (include "console-plugin-nvidia-gpu.name" .) .Values.plugin.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" .Values.plugin.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name secret containing the certificate
+*/}}
+{{- define "console-plugin-nvidia-gpu.certificateSecret" -}}
+{{ default "plugin-serving-cert" .Values.plugin.certificateSecretName }}
+{{- end }}
+
+{{/*
+Create the name of the patcher
+*/}}
+{{- define "console-plugin-nvidia-gpu.patcherName" -}}
+{{- printf "%s-patcher" (include "console-plugin-nvidia-gpu.name" .) }}
+{{- end }}
+
+{{/*
+Create the name of the patcher service account to use
+*/}}
+{{- define "console-plugin-nvidia-gpu.patcherServiceAccountName" -}}
+{{- if .Values.plugin.patcherServiceAccount.create }}
+{{- default (printf "%s-patcher" (include "console-plugin-nvidia-gpu.name" .)) .Values.plugin.patcherServiceAccount.name }}
+{{- else }}
+{{- default "default" .Values.plugin.patcherServiceAccount.name }}
 {{- end }}
 {{- end }}

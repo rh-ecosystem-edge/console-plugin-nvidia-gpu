@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Page,
   PageSection,
   Split,
   SplitItem,
@@ -24,38 +23,36 @@ const GPUDashboard: React.FC = () => {
 
   return (
     <GPUDashboardContext.Provider value={gpuContextValues}>
-      <Page>
-        <PageSection isFilled>
-          <Stack hasGutter>
-            <StackItem>
-              <Split hasGutter>
-                <SplitItem isFilled>
-                  <Title headingLevel="h1">{t('GPUs')}</Title>
-                </SplitItem>
-                <SplitItem>
-                  <GPUSelector />
-                </SplitItem>
-              </Split>
-            </StackItem>
-            <StackItem>
-              <Grid hasGutter>
-                <GridItem span={6}>
-                  <MIGCard />
-                </GridItem>
-                <GridItem span={6}>
-                  <InfoCard />
-                </GridItem>
-              </Grid>
-            </StackItem>
-            <StackItem>
-              <GPUDashboardGraphs />
-            </StackItem>
-            <StackItem>
-              <WorkloadsCard />
-            </StackItem>
-          </Stack>
-        </PageSection>
-      </Page>
+      <PageSection>
+        <Stack hasGutter>
+          <StackItem>
+            <Split hasGutter>
+              <SplitItem isFilled>
+                <Title headingLevel="h1">{t('GPUs')}</Title>
+              </SplitItem>
+              <SplitItem>
+                <GPUSelector />
+              </SplitItem>
+            </Split>
+          </StackItem>
+          <StackItem>
+            <Grid hasGutter>
+              <GridItem span={6}>
+                <MIGCard />
+              </GridItem>
+              <GridItem span={6}>
+                <InfoCard />
+              </GridItem>
+            </Grid>
+          </StackItem>
+          <StackItem>
+            <GPUDashboardGraphs />
+          </StackItem>
+          <StackItem>
+            <WorkloadsCard />
+          </StackItem>
+        </Stack>
+      </PageSection>
     </GPUDashboardContext.Provider>
   );
 };
