@@ -2,11 +2,10 @@ apiVersion: console.openshift.io/v1
 kind: ConsolePlugin
 metadata:
   name: {{ include "console-plugin-nvidia-gpu.fullname" . }}
-  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "console-plugin-nvidia-gpu.labels" . | nindent 4 }}
 spec:
-  displayName: 'Console Plugin NVIDIA GPU Template'
+  displayName: {{ .Values.plugin.description }}
   i18n:
     loadType: Preload
   backend:

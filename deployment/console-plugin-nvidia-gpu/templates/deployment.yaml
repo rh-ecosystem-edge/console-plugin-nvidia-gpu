@@ -6,37 +6,36 @@ metadata:
     {{- include "console-plugin-nvidia-gpu.labels" . | nindent 4 }}
     app.openshift.io/runtime-namespace: {{ include "console-plugin-nvidia-gpu.name" . }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.plugin.replicas }}
   selector:
     matchLabels:
       {{- include "console-plugin-nvidia-gpu.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with .Values.plugin.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
         {{- include "console-plugin-nvidia-gpu.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.plugin.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.podSecurityContext }}
-      securityContext:
-        {{- toYaml . | nindent 8 }}
+      serviceAccountName: {{ include "console-plugin-nvidia-gpu.serviceAccountName" . }}
+      {{- if and (.Values.plugin.securityContext.enabled) (.Values.plugin.podSecurityContext) }}
+      securityContext: {{ tpl (toYaml (omit .Values.plugin.podSecurityContext "enabled")) $ | nindent 8 }}
       {{- end }}
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        {{- with .Values.containerSecurityContext }}
-        securityContext:
-          {{- toYaml . | nindent 10 }}
+        image: "{{ .Values.plugin.image }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.plugin.imagePullPolicy }}
+        {{- if and (.Values.plugin.securityContext.enabled) (.Values.plugin.containerSecurityContext) }}
+        securityContext: {{ tpl (toYaml (omit .Values.plugin.containerSecurityContext "enabled")) $ | nindent 10 }}
         {{- end }}
         ports:
-        - containerPort: 9443
+        - containerPort: {{ .Values.plugin.port }}
           protocol: TCP
         volumeMounts:
         - name: plugin-serving-cert
@@ -47,11 +46,11 @@ spec:
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+          {{- toYaml .Values.plugin.resources | nindent 10 }}
       volumes:
       - name: plugin-serving-cert
         secret:
-          secretName: plugin-serving-cert
+          secretName: {{ include "console-plugin-nvidia-gpu.certificateSecret" . }}
           defaultMode: 420
       - name: nginx-conf
         configMap:
@@ -59,15 +58,15 @@ spec:
           defaultMode: 420
       restartPolicy: Always
       dnsPolicy: ClusterFirst
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.plugin.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- with .Values.plugin.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.tolerations }}
+      {{- with .Values.plugin.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}

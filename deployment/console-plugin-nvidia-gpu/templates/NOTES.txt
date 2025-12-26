@@ -1,17 +1,34 @@
-View the Console Plugin NVIDIA GPU deployed resources by running the following command:
+Thank you for installing {{ .Chart.Name }}!
+
+View the Console Plugin NVIDIA GPU deployed resources by running:
 
 $ kubectl -n {{ .Release.Namespace }} get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
 
-Enable the plugin by running the following commands:
+{{- if .Values.plugin.jobs.patchConsoles.enabled }}
 
-# check if a plugins field is specified
+✅ The plugin has been automatically enabled via a post-install hook!
+
+Verify the plugin was enabled:
+
+$ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}" | grep {{ include "console-plugin-nvidia-gpu.name" . }}
+
+{{- else }}
+
+⚠️  Auto-enablement is disabled. Enable the plugin manually:
+
+# Check if plugins field exists
 $ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}"
 
-# if not, then run the following to enable the plugin
-$ oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["console-plugin-nvidia-gpu"] } }' --type=merge
+# If empty, run:
+$ oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["{{ include "console-plugin-nvidia-gpu.name" . }}"] } }' --type=merge
 
-# if yes, then run the following to enable the plugin
-$ oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "console-plugin-nvidia-gpu" }]' --type=json
+# If not empty, run:
+$ oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "{{ include "console-plugin-nvidia-gpu.name" . }}" }]' --type=json
 
-# add the required DCGM Exporter metrics ConfigMap to the existing NVIDIA operator ClusterPolicy CR
-$ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "dcgmExporter": { "config": { "name": "console-plugin-nvidia-gpu" } } } }' --type=merge
+{{- end }}
+
+Add the required DCGM Exporter metrics ConfigMap to the NVIDIA operator ClusterPolicy:
+
+$ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "dcgmExporter": { "config": { "name": "{{ include "console-plugin-nvidia-gpu.fullname" . }}" } } } }' --type=merge
+
+For more information, visit: {{ .Chart.Home }}

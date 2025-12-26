@@ -23,20 +23,20 @@ $ helm repo update
 # install Helm chart in the default NVIDIA GPU operator namespace
 $ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edge/console-plugin-nvidia-gpu
 
+# The plugin will be automatically enabled via a post-install hook!
+# No manual 'oc patch' commands needed.
+
 # view deployed resources
 $ kubectl -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
 
-# check if a plugins field is specified
-$ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}"
-
-# if not, then run the following to enable the plugin
-$ oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["console-plugin-nvidia-gpu"] } }' --type=merge
-
-# if yes, then run the following to enable the plugin
-$ oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "console-plugin-nvidia-gpu" }]' --type=json
+# verify the plugin was automatically enabled
+$ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}" | grep console-plugin-nvidia-gpu
 
 # add the required DCGM Exporter metrics ConfigMap to the existing NVIDIA operator ClusterPolicy CR
 $ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "dcgmExporter": { "config": { "name": "console-plugin-nvidia-gpu" } } } }' --type=merge
+
+# (Optional) To disable auto-enablement, set plugin.jobs.patchConsoles.enabled=false:
+$ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edge/console-plugin-nvidia-gpu --set plugin.jobs.patchConsoles.enabled=false
 ```
 
 ### Helm Tests
