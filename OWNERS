@@ -6,10 +6,12 @@ filters:
       - empovit
       - mresvanis
       - fabiendupont
+      - yakovbeder
     reviewers:
       - empovit
       - mresvanis
       - fabiendupont
+      - yakovbeder
   "^Dockerfile.*":
     labels:
       - downstream-change-needed
