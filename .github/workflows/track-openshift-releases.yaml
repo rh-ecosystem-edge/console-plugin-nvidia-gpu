@@ -1,0 +1,91 @@
+name: Track OpenShift Releases
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Weekly on Monday at 9 AM UTC
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  check-releases:
+    runs-on: ubuntu-latest
+    if: github.repository == 'rh-ecosystem-edge/console-plugin-nvidia-gpu'
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for new OpenShift releases
+        id: check_release
+        run: .github/scripts/check_openshift_release.sh
+
+      - name: Check for existing issue
+        if: steps.check_release.outputs.new_version != ''
+        id: check_issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.check_release.outputs.new_version }}"
+          ISSUE_TITLE="Test and support OpenShift ${VERSION}"
+
+          # Check if there's an open issue with this title
+          EXISTING_ISSUE=$(gh issue list \
+            --repo ${{ github.repository }} \
+            --state open \
+            --search "in:title ${ISSUE_TITLE}" \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [ -n "$EXISTING_ISSUE" ]; then
+            echo "issue_exists=true" >> $GITHUB_OUTPUT
+            echo "Found existing issue #${EXISTING_ISSUE}"
+          else
+            echo "issue_exists=false" >> $GITHUB_OUTPUT
+            echo "No existing issue found"
+          fi
+
+      - name: Create GitHub issue
+        if: steps.check_release.outputs.new_version != '' && steps.check_issue.outputs.issue_exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.check_release.outputs.new_version }}"
+
+          gh issue create \
+            --repo ${{ github.repository }} \
+            --title "Test and support OpenShift ${VERSION}" \
+            --body "$(cat <<EOF
+          A new OpenShift release **${VERSION}** has been detected.
+
+          ## Tasks
+          - [ ] Test the console plugin on OpenShift ${VERSION}
+          - [ ] Update the plugin if compatibility issues are found
+          - [ ] Update documentation with the new supported version
+          - [ ] Update \`.github/data/latest-openshift-version.txt\` to \`${VERSION}\`
+
+          This issue was automatically created by the [Track OpenShift Releases workflow](https://github.com/${{ github.repository }}/actions/workflows/track-openshift-releases.yaml).
+          EOF
+          )"
+
+      - name: Create failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          WORKFLOW_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          gh issue create \
+            --repo ${{ github.repository }} \
+            --title "OpenShift release tracking workflow failed" \
+            --label "bug" \
+            --body "$(cat <<EOF
+          The [Track OpenShift Releases workflow]($WORKFLOW_URL) failed.
+
+          **Workflow run:** $WORKFLOW_URL
+          **Triggered by:** ${{ github.event_name }}
+          **Run date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+          Please investigate the failure and fix the issue.
+          EOF
+          )"
