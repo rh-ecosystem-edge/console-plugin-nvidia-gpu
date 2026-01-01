@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { SelectOption, DropdownPosition, Select, Card, Spinner } from '@patternfly/react-core';
+import {
+  SelectOption,
+  SelectList,
+  SelectOptionProps,
+  Select,
+  Spinner,
+  MenuToggle,
+  MenuToggleElement,
+} from '@patternfly/react-core';
 import { GPUDashboardContext } from './GPUDashboardContext';
 import { useTranslation } from '../../i18n';
 
@@ -11,7 +19,7 @@ const GPUSelector: React.FC = () => {
 
   const isDisabled = !gpus?.length || !!gpusError || !gpusLoaded;
 
-  let items: React.ReactElement[];
+  let items: React.ReactElement<SelectOptionProps>[];
 
   if (!gpusLoaded) {
     items = [
@@ -28,21 +36,27 @@ const GPUSelector: React.FC = () => {
   }
 
   return (
-    <Card>
-      <Select
-        onSelect={(e, selection: string) => {
-          setSelectedGPU(selection);
-          setOpen(false);
-        }}
-        onToggle={setOpen}
-        isOpen={isOpen}
-        isDisabled={isDisabled}
-        position={DropdownPosition.right}
-        selections={selectedGPU?.uuid}
-      >
-        {items}
-      </Select>
-    </Card>
+    <Select
+      isOpen={isOpen}
+      selected={selectedGPU?.uuid}
+      onSelect={(_event, selection) => {
+        setSelectedGPU(selection as string);
+        setOpen(false);
+      }}
+      onOpenChange={(isOpen) => setOpen(isOpen)}
+      toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+        <MenuToggle
+          ref={toggleRef}
+          onClick={() => setOpen(!isOpen)}
+          isExpanded={isOpen}
+          isDisabled={isDisabled}
+        >
+          {selectedGPU?.uuid || t('Select GPU')}
+        </MenuToggle>
+      )}
+    >
+      <SelectList>{items}</SelectList>
+    </Select>
   );
 };
 
