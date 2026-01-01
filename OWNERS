@@ -7,11 +7,13 @@ filters:
       - mresvanis
       - fabiendupont
       - yakovbeder
+      - TomerNewman
     reviewers:
       - empovit
       - mresvanis
       - fabiendupont
       - yakovbeder
+      - TomerNewman
   "^Dockerfile.*":
     labels:
       - downstream-change-needed
