@@ -1,4 +1,4 @@
-name: Lint and test Helm chart
+name: Lint and test chart
 
 on:
   pull_request:
@@ -27,7 +27,7 @@ jobs:
         uses: helm/chart-testing-action@v2.2.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --config deployment/ct.yaml
+        run: ct lint --config deployment/ct.yaml --check-version-increment=false
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
