@@ -3,15 +3,17 @@
 filters:
   ".*":
     approvers:
-      - jtomasek
-      - mareklibra
-      - rawagner
-      - jelkosz
+      - empovit
+      - mresvanis
+      - fabiendupont
+      - yakovbeder
+      - TomerNewman
     reviewers:
-      - jtomasek
-      - mareklibra
-      - rawagner
-      - jelkosz
+      - empovit
+      - mresvanis
+      - fabiendupont
+      - yakovbeder
+      - TomerNewman
   "^Dockerfile.*":
     labels:
       - downstream-change-needed
