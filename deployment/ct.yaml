@@ -1,5 +1,8 @@
 # See https://github.com/helm/chart-testing#configuration
+# Note: target-branch is intentionally not set here to avoid accidentally
+# comparing against the wrong branch. When running locally, specify it explicitly:
+#   ct lint --config deployment/ct.yaml --target-branch <branch-name>
+# In CI, the workflow automatically sets it to the PR base branch.
 remote: origin
-target-branch: main
 chart-dirs:
   - deployment
