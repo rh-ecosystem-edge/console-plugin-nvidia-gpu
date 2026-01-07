@@ -24,7 +24,7 @@ jobs:
         uses: helm/chart-testing-action@v2.2.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --config deployment/ct.yaml
+        run: ct lint --config deployment/ct.yaml --target-branch ${{ github.base_ref }}
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
@@ -47,4 +47,4 @@ jobs:
           kubectl create -n console-plugin-nvidia-gpu secret tls plugin-serving-cert --key ca.key --cert ca.crt
 
       - name: Run chart-testing (install)
-        run: ct install --namespace console-plugin-nvidia-gpu --config deployment/ct.yaml
+        run: ct install --namespace console-plugin-nvidia-gpu --config deployment/ct.yaml --target-branch ${{ github.base_ref }}
