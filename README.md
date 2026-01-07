@@ -5,7 +5,7 @@ Dynamic plugin for the OpenShift console which adds GPU capabilities.
 ## OCP version compatibility
 | NVIDIA GPU plugin      | OCP Console |
 | ---------------------- | ----------- |
-| latest                 | 4.11+       |
+| release-0.2.3          | 4.11+       |
 | release-0.0.1          | 4.10+       |
 
 ## QuickStart
