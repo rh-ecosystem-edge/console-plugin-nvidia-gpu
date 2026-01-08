@@ -8,12 +8,14 @@ filters:
       - fabiendupont
       - yakovbeder
       - TomerNewman
+      - MarkusGersdorf
     reviewers:
       - empovit
       - mresvanis
       - fabiendupont
       - yakovbeder
       - TomerNewman
+      - MarkusGersdorf
   "^Dockerfile.*":
     labels:
       - downstream-change-needed
