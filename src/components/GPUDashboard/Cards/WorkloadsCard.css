@@ -2,3 +2,8 @@
     overflow: auto;
     max-height: 30rem;
 }
+
+.ng-break-word {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
