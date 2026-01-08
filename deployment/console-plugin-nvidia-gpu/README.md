@@ -5,6 +5,8 @@ for the [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computi
 [console UI](https://github.com/openshift/console). It leverages the metrics of the [NVIDIA GPU operator components](https://github.com/NVIDIA/gpu-operator)
 in order to serve the respective [console-extensions](https://github.com/openshift/console/blob/master/frontend/packages/console-dynamic-plugin-sdk/README.md#console-extensionsjson).
 
+Version 0.2.6 introduces multi-architecture support (amd64, arm64).
+
 ## QuickStart
 
 ### Prerequisites
