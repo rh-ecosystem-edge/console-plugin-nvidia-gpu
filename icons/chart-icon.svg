@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#EE0000" opacity="0.08"/>
+
+  <!-- GPU Chip outline (larger, less padding) -->
+  <rect x="45" y="45" width="110" height="110" rx="5" fill="none" stroke="#EE0000" stroke-width="4"/>
+
+  <!-- Chip pins (left) -->
+  <line x1="30" y1="65" x2="45" y2="65" stroke="#EE0000" stroke-width="3"/>
+  <line x1="30" y1="85" x2="45" y2="85" stroke="#EE0000" stroke-width="3"/>
+  <line x1="30" y1="105" x2="45" y2="105" stroke="#EE0000" stroke-width="3"/>
+  <line x1="30" y1="125" x2="45" y2="125" stroke="#EE0000" stroke-width="3"/>
+
+  <!-- Chip pins (right) -->
+  <line x1="155" y1="65" x2="170" y2="65" stroke="#EE0000" stroke-width="3"/>
+  <line x1="155" y1="85" x2="170" y2="85" stroke="#EE0000" stroke-width="3"/>
+  <line x1="155" y1="105" x2="170" y2="105" stroke="#EE0000" stroke-width="3"/>
+  <line x1="155" y1="125" x2="170" y2="125" stroke="#EE0000" stroke-width="3"/>
+
+  <!-- Chip pins (top) -->
+  <line x1="70" y1="30" x2="70" y2="45" stroke="#EE0000" stroke-width="3"/>
+  <line x1="100" y1="30" x2="100" y2="45" stroke="#EE0000" stroke-width="3"/>
+  <line x1="130" y1="30" x2="130" y2="45" stroke="#EE0000" stroke-width="3"/>
+
+  <!-- Chip pins (bottom) -->
+  <line x1="70" y1="155" x2="70" y2="170" stroke="#EE0000" stroke-width="3"/>
+  <line x1="100" y1="155" x2="100" y2="170" stroke="#EE0000" stroke-width="3"/>
+  <line x1="130" y1="155" x2="130" y2="170" stroke="#EE0000" stroke-width="3"/>
+
+  <!-- GPU text (larger, bolder) -->
+  <text x="100" y="95" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#EE0000" text-anchor="middle">GPU</text>
+
+  <!-- Monitoring bars (narrower, 5 bars filling the space) -->
+  <rect x="55" y="115" width="9" height="25" fill="#EE0000" opacity="0.5"/>
+  <rect x="75" y="108" width="9" height="32" fill="#EE0000" opacity="0.65"/>
+  <rect x="95" y="112" width="9" height="28" fill="#EE0000" opacity="0.75"/>
+  <rect x="115" y="105" width="9" height="35" fill="#EE0000" opacity="0.9"/>
+  <rect x="135" y="110" width="9" height="30" fill="#EE0000"/>
+</svg>
