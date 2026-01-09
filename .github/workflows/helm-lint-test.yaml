@@ -4,37 +4,76 @@ on:
   pull_request:
     paths:
     - 'deployment/**/*'
+  workflow_dispatch:
+    inputs:
+      force_install_unchanged:
+        description: 'Force install even if chart is unchanged'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      target_branch:
+        description: 'Target branch to compare against (leave empty to use current branch)'
+        required: false
+        default: ''
+        type: string
 
 jobs:
   lint-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Set up Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v4
         with:
-          version: v3.7.2
+          version: v3.19.0
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.2.0
+        uses: helm/chart-testing-action@v2.8.0
+
+      - name: Determine if install is needed
+        id: should-install
+        run: |
+          if [[ -n "${{ github.event.inputs.target_branch }}" ]]; then
+            TARGET_BRANCH="${{ github.event.inputs.target_branch }}"
+          elif [[ -n "${{ github.base_ref }}" ]]; then
+            TARGET_BRANCH="${{ github.base_ref }}"
+          else
+            TARGET_BRANCH="${{ github.ref_name }}"
+          fi
+          if [[ "${{ github.event.inputs.force_install_unchanged }}" == "true" ]] || ct list-changed --config deployment/ct.yaml --target-branch "$TARGET_BRANCH" | grep -q .; then
+            echo "result=true" >> $GITHUB_OUTPUT
+          else
+            echo "result=false" >> $GITHUB_OUTPUT
+          fi
+          echo "target_branch=$TARGET_BRANCH" >> $GITHUB_OUTPUT
 
       - name: Run chart-testing (lint)
-        run: ct lint --config deployment/ct.yaml --target-branch ${{ github.base_ref }} --check-version-increment=false
+        if: steps.should-install.outputs.result == 'true'
+        run: ct lint --config deployment/ct.yaml --check-version-increment=false --target-branch ${{ steps.should-install.outputs.target_branch }} ${{ github.event.inputs.force_install_unchanged == 'true' && '--all' || '' }}
 
       - name: Create kind cluster
-        uses: helm/kind-action@v1.2.0
+        if: steps.should-install.outputs.result == 'true'
+        uses: helm/kind-action@v1.13.0
+        with:
+          version: v0.31.0
+          node_image: kindest/node:v1.32.0
 
-      - uses: azure/setup-kubectl@v2.0
+      - uses: azure/setup-kubectl@v4
+        if: steps.should-install.outputs.result == 'true'
         id: install
       - name: Setup OpenShift dependencies
+        if: steps.should-install.outputs.result == 'true'
         run: |
           kubectl apply -f deployment/hack/crds/*.yaml
           kubectl wait --for condition="established" -f deployment/hack/crds/*.yaml
@@ -50,4 +89,5 @@ jobs:
           kubectl create -n console-plugin-nvidia-gpu secret tls plugin-serving-cert --key ca.key --cert ca.crt
 
       - name: Run chart-testing (install)
-        run: ct install --namespace console-plugin-nvidia-gpu --config deployment/ct.yaml --target-branch ${{ github.base_ref }}
+        if: steps.should-install.outputs.result == 'true'
+        run: ct install --target-branch ${{ steps.should-install.outputs.target_branch }} --namespace console-plugin-nvidia-gpu --config deployment/ct.yaml ${{ github.event.inputs.force_install_unchanged == 'true' && '--all' || '' }}
