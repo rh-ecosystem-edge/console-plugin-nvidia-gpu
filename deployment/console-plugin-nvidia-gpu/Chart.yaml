@@ -6,7 +6,7 @@ name: console-plugin-nvidia-gpu
 sources:
   - https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
 home: https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
-icon: https://raw.githubusercontent.com/rh-ecosystem-edge/console-plugin-nvidia-gpu/main/icons/chart-icon.svg
+icon: https://raw.githubusercontent.com/rh-ecosystem-edge/console-plugin-nvidia-gpu/release-0.2.6/icons/chart-icon.svg
 keywords:
   - openshift-console
   - nvidia
