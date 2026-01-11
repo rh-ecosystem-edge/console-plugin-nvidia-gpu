@@ -13,6 +13,8 @@ in order to serve the respective [console-extensions](https://github.com/openshi
 - [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
 
+**Note:** Multi-arch container images with support for amd64 and arm64 architectures are available starting from version 0.2.6.
+
 ### Deployment
 
 ```
