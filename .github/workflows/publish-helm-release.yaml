@@ -1,0 +1,73 @@
+name: Publish Helm Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_branch:
+        description: 'Release branch name (e.g., release-0.2.7)'
+        required: true
+        type: string
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Extract version from branch name
+        run: |
+          BRANCH="${{ inputs.release_branch }}"
+          SEMVER="${BRANCH#release-}"
+          echo "SEMVER=$SEMVER" >> $GITHUB_ENV
+
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_branch }}
+          path: release
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Package Helm chart
+        working-directory: release
+        run: |
+          helm package deployment/console-plugin-nvidia-gpu
+          echo "PACKAGE_FILE=console-plugin-nvidia-gpu-${{ env.SEMVER }}.tgz" >> $GITHUB_ENV
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Copy package to gh-pages
+        run: |
+          cp release/${{ env.PACKAGE_FILE }} gh-pages/
+
+      - name: Update Helm repository index
+        working-directory: gh-pages
+        run: |
+          helm repo index .
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Add Helm chart version ${{ env.SEMVER }}"
+          branch: publish-release-${{ env.SEMVER }}
+          delete-branch: true
+          title: "Add Helm chart version ${{ env.SEMVER }}"
+          body: |
+            This PR adds Helm chart version `${{ env.SEMVER }}` from the `${{ inputs.release_branch }}` branch.
+
+            ## Changes
+            - Added `console-plugin-nvidia-gpu-${{ env.SEMVER }}.tgz`
+            - Updated `index.yaml`
+
+            ## Chart Details
+            - **Version**: ${{ env.SEMVER }}
+            - **Source Branch**: ${{ inputs.release_branch }}
+          base: gh-pages
