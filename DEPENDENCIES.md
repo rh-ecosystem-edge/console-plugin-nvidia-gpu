@@ -15,7 +15,7 @@ This document explains why certain dependencies are pinned to specific versions.
 ### `webpack` → `5.75.0`
 
 **Reason**: Required by `@openshift-console/dynamic-plugin-sdk-webpack@1.1.1`. Version 5.76.0+ causes build failure:
-```
+```console
 TypeError: The 'compilation' argument must be an instance of Compilation
 ```
 

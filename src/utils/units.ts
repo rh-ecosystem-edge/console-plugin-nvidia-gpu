@@ -263,7 +263,7 @@ export const humanizeDegrees: Humanize = (value) => ({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formatPercentage = (value: number, options?: any, digits = 1) => {
   const { locales, ...rest } = _.defaults(
-    { style: 'percent' }, // Don't allow perent style to be overridden.
+    { style: 'percent' }, // Don't allow percent style to be overridden.
     options,
     {
       maximumFractionDigits: digits,
