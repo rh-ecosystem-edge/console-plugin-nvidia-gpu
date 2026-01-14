@@ -92,7 +92,7 @@ const MetricsCard: React.FC<MetricsCardProps> = ({
 
   return (
     <Card className="ng-metrics-card">
-      <CardTitle className="pf-u-text-align-center">{title}</CardTitle>
+      <CardTitle className="ng-metrics-card__title">{title}</CardTitle>
       <CardBody>
         {loading && !error ? (
           <Bullseye>
