@@ -62,6 +62,8 @@ export const podPhase = (pod: any): any => {
       } else if (waiting && waiting.reason) {
         phase = waiting.reason;
       } else if (waiting && !waiting.reason) {
+        phase = 'Waiting';
+      } else if (terminated && !terminated.reason) {
         phase = terminated.signal
           ? `Signal:${terminated.signal}`
           : `ExitCode:${terminated.exitCode}`;

@@ -11,19 +11,17 @@ module.exports = {
       return false;
     }
   },
-  parseFolder(directory, argFunction, packageDir) {
-    return (async () => {
-      try {
-        const files = await fs.promises.readdir(directory);
-        for (const file of files) {
-          const filePath = path.join(directory, file);
-          await argFunction(filePath, packageDir);
-        }
-      } catch (e) {
-        console.error(`Failed to parseFolder ${directory}:`, e);
-        throw e;
+  async parseFolder(directory, argFunction, packageDir) {
+    try {
+      const files = await fs.promises.readdir(directory);
+      for (const file of files) {
+        const filePath = path.join(directory, file);
+        await argFunction(filePath, packageDir);
       }
-    })();
+    } catch (e) {
+      console.error(`Failed to parseFolder ${directory}:`, e);
+      throw e;
+    }
   },
   deleteFile(filePath) {
     try {

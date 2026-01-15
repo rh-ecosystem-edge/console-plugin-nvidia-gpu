@@ -29,7 +29,7 @@ const config: Configuration = {
     rules: [
       {
         test: /\.(jsx?|tsx?)$/,
-        exclude: /\/node_modules\//,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'ts-loader',
