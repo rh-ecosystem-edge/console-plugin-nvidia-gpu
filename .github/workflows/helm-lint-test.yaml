@@ -58,6 +58,24 @@ jobs:
           fi
           echo "target_branch=$TARGET_BRANCH" >> $GITHUB_OUTPUT
 
+      - name: Validate metrics file
+        run: |
+          METRICS_FILE="deployment/console-plugin-nvidia-gpu/files/dcgm-metrics.csv"
+          if [ ! -f "$METRICS_FILE" ]; then
+            echo "Error: Metrics file not found at $METRICS_FILE"
+            exit 1
+          fi
+          if [ ! -s "$METRICS_FILE" ]; then
+            echo "Error: Metrics file is empty at $METRICS_FILE"
+            exit 1
+          fi
+          LINE_COUNT=$(wc -l < "$METRICS_FILE")
+          if [ "$LINE_COUNT" -lt 2 ]; then
+            echo "Error: Metrics file must contain at least 2 lines (header + metrics)"
+            exit 1
+          fi
+          echo "Metrics file validation passed: $LINE_COUNT lines"
+
       - name: Run chart-testing (lint)
         if: steps.should-install.outputs.result == 'true'
         run: ct lint --config deployment/ct.yaml --check-version-increment=false --target-branch ${{ steps.should-install.outputs.target_branch }} ${{ github.event.inputs.force_install_unchanged == 'true' && '--all' || '' }}
