@@ -1,3 +1,4 @@
+{{- include "console-plugin-nvidia-gpu.validateOpenShiftVersion" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

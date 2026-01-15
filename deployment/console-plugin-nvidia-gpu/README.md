@@ -26,7 +26,7 @@ $ helm repo update
 $ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edge/console-plugin-nvidia-gpu
 
 # view deployed resources
-$ kubectl -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
+$ oc -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
 
 # check if a plugins field is specified
 $ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}"

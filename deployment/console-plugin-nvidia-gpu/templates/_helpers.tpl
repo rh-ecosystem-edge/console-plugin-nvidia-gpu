@@ -63,3 +63,18 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+OpenShift version check. Fails if cluster version is below minimum required.
+*/}}
+{{- define "console-plugin-nvidia-gpu.validateOpenShiftVersion" -}}
+{{- $kubeMinor := regexReplaceAll "[^0-9]" .Capabilities.KubeVersion.Minor "" -}}
+{{- $kubeMinorInt := int $kubeMinor -}}
+{{- $minKubeMinor := 32 -}}
+{{- $minOpenShift := "4.19" -}}
+{{- /* Calculate detected OpenShift version: OCP 4.x = K8s 1.(x+13) */ -}}
+{{- $detectedOCP := printf "4.%d" (sub $kubeMinorInt 13) -}}
+{{- if lt $kubeMinorInt $minKubeMinor -}}
+{{- fail (printf "Detected OpenShift %s (Kubernetes 1.%d). This chart requires OpenShift %s (Kubernetes 1.%d) or later. Use chart version 0.2.x for OpenShift 4.18 and earlier." $detectedOCP $kubeMinorInt $minOpenShift $minKubeMinor) -}}
+{{- end -}}
+{{- end -}}
