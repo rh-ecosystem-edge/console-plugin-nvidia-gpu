@@ -11,13 +11,7 @@ import {
   PrometheusResponse,
   HumanizeResult,
 } from '@openshift-console/dynamic-plugin-sdk';
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  EmptyState,
-  EmptyStateBody,
-} from '@patternfly/react-core';
+import { Card, CardBody, CardTitle, EmptyState, EmptyStateBody } from '@patternfly/react-core';
 import { sortable } from '@patternfly/react-table';
 import { CubesIcon } from '@patternfly/react-icons';
 import { Pod } from '../../../resources';
