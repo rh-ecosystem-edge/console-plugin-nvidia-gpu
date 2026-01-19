@@ -9,7 +9,7 @@ in order to serve the respective [console-extensions](https://github.com/openshi
 
 ### Prerequisites
 
-- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.12-4.18
+- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.19+ for plugin 0.3.0, or 4.12–4.18 for plugin 0.2.6
 - [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
 
