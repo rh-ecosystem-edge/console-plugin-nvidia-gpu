@@ -14,5 +14,6 @@ keywords:
 type: application
 version: 0.3.0
 maintainers:
-  - name: mresvanis
-    email: mres@redhat.com
+  - name: empovit
+    email: vemporop@redhat.com
+    url: https://github.com/empovit
