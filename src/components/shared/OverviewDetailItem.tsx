@@ -30,8 +30,15 @@ export const OverviewDetailItem: React.FC<OverviewDetailItemProps> = ({
   return (
     <dl className="ng-overview-detail-item">
       <dt className="ng-overview-detail-item__title">{title}</dt>
-      <dd className={valueClassName ? `ng-overview-detail-item__value ${valueClassName}` : 'ng-overview-detail-item__value'}>{value}</dd>
+      <dd
+        className={
+          valueClassName
+            ? `ng-overview-detail-item__value ${valueClassName}`
+            : 'ng-overview-detail-item__value'
+        }
+      >
+        {value}
+      </dd>
     </dl>
   );
 };
-
