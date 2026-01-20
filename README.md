@@ -11,10 +11,11 @@ Dynamic plugin for the OpenShift console which adds GPU capabilities.
 
 | NVIDIA GPU plugin      | OCP Console |
 | ---------------------- | ----------- |
-| main                   | 4.19+       |
-| release-0.2.6          | 4.12-4.18   |
-| release-0.2.4          | 4.11        |
-| release-0.0.1          | 4.10        |
+| main (development)     | 4.19+       |
+| 0.3.0                  | 4.19+       |
+| 0.2.6                  | 4.12-4.18   |
+| 0.2.4                  | 4.11        |
+| 0.0.1                  | 4.10        |
 
 **Note:** Multi-arch container images with support for amd64 and arm64 architectures are available starting from version 0.2.6.
 
@@ -22,7 +23,7 @@ Dynamic plugin for the OpenShift console which adds GPU capabilities.
 
 ### Prerequisites
 
-- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.19+ (main branch) or 4.12-4.18 (release)
+- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift)
 - [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
 
@@ -55,19 +56,18 @@ $ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "d
 ### Local development
 
 OpenShift Console NVIDIA GPU Plugin works as a remote bundle for OCP console. To run OpenShift
-Console NVIDIA GPU Plugin there should be a instance of the OCP console up and running. Follow these
+Console NVIDIA GPU Plugin there should be an instance of the OCP console up and running. Follow these
 steps to run the OCP Console in development mode:
 
- - Follow everything as mentioned in the console [README.md](https://github.com/openshift/console)
-   to build the application.
- - Run the console bridge as follows `./bin/bridge -plugins console-plugin-nvidia-gpu=http://127.0.0.1:9001/`
- - Run developemnt mode of console by going into `console/frontend` and running `yarn run dev`
+- Follow everything as mentioned in the console [README.md](https://github.com/openshift/console)
+  to build the application.
+- Run the console bridge as follows `./bin/bridge -plugins console-plugin-nvidia-gpu=http://127.0.0.1:9001/`
+- Run development mode of console by going into `console/frontend` and running `yarn run dev`
 
-After the OCP console is set as required by the ODF Console. Perform the following steps to make it
-run:
+After the OCP console is set up as described above, perform the following steps to run the plugin:
 
- - Install & setup the NVIDIA GPU Operator
- - Clone this repo
- - Pull all required dependencies by running `yarn install`
- - Run the development mode by running `yarn start`
+- Install & setup the NVIDIA GPU Operator
+- Clone this repo
+- Pull all required dependencies by running `yarn install`
+- Run the development mode by running `yarn start`
 
