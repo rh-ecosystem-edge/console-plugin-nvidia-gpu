@@ -1,0 +1,27 @@
+name: Validate Helm Index
+
+on:
+  pull_request:
+    branches:
+      - gh-pages
+  workflow_dispatch:
+
+jobs:
+  validate-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
+
+      - name: Checkout validation script from main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          sparse-checkout: |
+            .github/scripts/validate-helm-index.sh
+          sparse-checkout-cone-mode: false
+          path: validation
+
+      - name: Validate Helm repository index
+        run: |
+          validation/.github/scripts/validate-helm-index.sh index.yaml
