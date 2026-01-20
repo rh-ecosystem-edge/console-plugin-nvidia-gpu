@@ -5,15 +5,24 @@ for the [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computi
 [console UI](https://github.com/openshift/console). It leverages the metrics of the [NVIDIA GPU operator components](https://github.com/NVIDIA/gpu-operator)
 in order to serve the respective [console-extensions](https://github.com/openshift/console/blob/master/frontend/packages/console-dynamic-plugin-sdk/README.md#console-extensionsjson).
 
+## OpenShift version compatibility
+
+| Plugin version | OpenShift version |
+| -------------- | ----------------- |
+| 0.3.0          | 4.19+             |
+| 0.2.6          | 4.12-4.18         |
+| 0.2.4          | 4.11              |
+| 0.0.1          | 4.10              |
+
+**Note:** Multi-arch container images with support for amd64 and arm64 architectures are available starting from version 0.2.6.
+
 ## QuickStart
 
 ### Prerequisites
 
-- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift) 4.12-4.18
+- [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift)
 - [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
-
-**Note:** Multi-arch container images with support for amd64 and arm64 architectures are available starting from version 0.2.6.
 
 ### Deployment
 
@@ -26,7 +35,7 @@ $ helm repo update
 $ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edge/console-plugin-nvidia-gpu
 
 # view deployed resources
-$ kubectl -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
+$ oc -n nvidia-gpu-operator get all -l app.kubernetes.io/name=console-plugin-nvidia-gpu
 
 # check if a plugins field is specified
 $ oc get consoles.operator.openshift.io cluster --output=jsonpath="{.spec.plugins}"
@@ -43,8 +52,8 @@ $ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "d
 
 ### Helm Tests
 
-The Console Plugin NVIDIA GPU Helm chart includes tests to verify the the console plugin's
-deployment. To run the tests run the following commands:
+The Console Plugin NVIDIA GPU Helm chart includes tests to verify the console plugin's
+deployment. To run the tests, run the following commands:
 
 ```
 # install Helm chart if you have not already done so
