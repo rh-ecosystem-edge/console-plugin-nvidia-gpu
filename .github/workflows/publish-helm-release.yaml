@@ -22,7 +22,7 @@ jobs:
           echo "SEMVER=$SEMVER" >> $GITHUB_ENV
 
       - name: Checkout release branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.release_branch }}
           path: release
@@ -37,7 +37,7 @@ jobs:
           echo "PACKAGE_FILE=console-plugin-nvidia-gpu-${{ env.SEMVER }}.tgz" >> $GITHUB_ENV
 
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages
@@ -50,6 +50,22 @@ jobs:
         working-directory: gh-pages
         run: |
           helm repo index .
+
+      - name: Checkout validation script from main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          sparse-checkout: |
+            .github/scripts/validate-helm-index.sh
+          sparse-checkout-cone-mode: false
+          path: validation
+
+      - name: Validate Helm repository index
+        run: |
+          # Use validation script from main branch (single source of truth)
+          # This ensures PRs created by this workflow are valid even though
+          # GitHub Actions won't trigger validate-helm-index.yaml workflow
+          validation/.github/scripts/validate-helm-index.sh gh-pages/index.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6

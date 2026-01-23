@@ -1,19 +1,16 @@
-name: Validate versions
+name: Validate Release Branch
 
 on:
   pull_request:
     branches:
       - 'release-*'
-      - gh-pages
 
 jobs:
-  validate-versions:
+  validate-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v6
 
       - name: Get target branch
         id: branch
@@ -21,7 +18,6 @@ jobs:
           echo "target=${{ github.base_ref }}" >> $GITHUB_OUTPUT
 
       - name: Validate release branch versions
-        if: startsWith(steps.branch.outputs.target, 'release-')
         run: |
           BRANCH="${{ steps.branch.outputs.target }}"
           SEMVER="${BRANCH#release-}"
@@ -46,24 +42,3 @@ jobs:
           fi
 
           echo "✓ Versions match branch"
-
-      - name: Validate gh-pages index.yaml
-        if: steps.branch.outputs.target == 'gh-pages'
-        run: |
-          # Check for duplicate versions
-          DUPLICATES=$(yq eval '.entries.console-plugin-nvidia-gpu[].version' index.yaml | sort | uniq -d)
-          if [[ -n "$DUPLICATES" ]]; then
-            echo "❌ Duplicate versions: $DUPLICATES"
-            exit 1
-          fi
-
-          # Check if any appVersion doesn't match v{version} or release-{version}
-          INVALID=$(yq eval '.entries.console-plugin-nvidia-gpu[] | select(.appVersion != "v" + .version and .appVersion != "release-" + .version) | .version' index.yaml)
-          if [[ -n "$INVALID" ]]; then
-            echo "❌ Invalid appVersion for versions: $INVALID"
-            echo "   appVersion must be 'v{version}' or 'release-{version}'"
-            exit 1
-          fi
-
-          COUNT=$(yq eval '.entries.console-plugin-nvidia-gpu | length' index.yaml)
-          echo "✓ All $COUNT versions valid"
