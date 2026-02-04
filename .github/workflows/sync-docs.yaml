@@ -1,0 +1,65 @@
+name: Sync Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+  repository_dispatch:
+    types: [release-published]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: main
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Update documentation
+        run: |
+          bash main/scripts/generate-readme.sh \
+            gh-pages/index.yaml \
+            main/README.md \
+            main/deployment/console-plugin-nvidia-gpu/README.md
+
+      - name: Commit changes to main
+        working-directory: main
+        run: |
+          if git diff --quiet "README.md" "deployment/console-plugin-nvidia-gpu/README.md"; then
+            echo "No changes to main"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "README.md" "deployment/console-plugin-nvidia-gpu/README.md"
+          git commit -m "docs: Sync documentation"
+          git push
+
+      - name: Sync README to gh-pages
+        run: cp main/README.md gh-pages/README.md
+
+      - name: Commit changes to gh-pages
+        working-directory: gh-pages
+        run: |
+          if git diff --quiet "README.md"; then
+            echo "No changes to gh-pages"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "README.md"
+          git commit -m "docs: Sync README from main"
+          git push

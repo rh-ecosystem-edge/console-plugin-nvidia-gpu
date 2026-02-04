@@ -1,0 +1,20 @@
+name: On Release Published
+
+on:
+  push:
+    branches:
+      - gh-pages
+    paths:
+      - index.yaml
+  workflow_dispatch:
+
+jobs:
+  trigger-readme-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Trigger README sync
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          event-type: release-published
