@@ -29,6 +29,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install chart-verifier
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          source: github
+          chart-verifier: latest
+
+      - name: Run Red Hat chart-verifier (OpenShift-specific checks)
+        run: |
+          chart-verifier verify \
+            --enable has-kubeversion,required-annotations-present \
+            deployment/console-plugin-nvidia-gpu
+
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
