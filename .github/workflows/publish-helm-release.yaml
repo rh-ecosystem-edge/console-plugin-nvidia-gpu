@@ -49,7 +49,7 @@ jobs:
       - name: Update Helm repository index
         working-directory: gh-pages
         run: |
-          helm repo index .
+          helm repo index . --merge index.yaml
 
       - name: Checkout validation script from main
         uses: actions/checkout@v6
