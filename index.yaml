@@ -112,6 +112,7 @@ entries:
   - apiVersion: v2
     appVersion: release-0.0.1
     created: "2026-01-20T09:00:28.401933842Z"
+    deprecated: true
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.10+ '
