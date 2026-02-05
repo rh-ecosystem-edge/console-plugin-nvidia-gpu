@@ -12,6 +12,7 @@ keywords:
   - gpu
 type: application
 version: 0.1.0
+deprecated: true
 maintainers:
   - name: mresvanis
     email: mres@redhat.com
