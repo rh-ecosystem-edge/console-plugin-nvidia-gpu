@@ -3,7 +3,7 @@ entries:
   console-plugin-nvidia-gpu:
   - apiVersion: v2
     appVersion: release-0.3.0
-    created: "2026-01-20T09:00:28.403992157Z"
+    created: "2026-02-05T11:57:55.395785897+02:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.19+ '
@@ -27,7 +27,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: release-0.2.6
-    created: "2026-01-20T09:00:28.403508518Z"
+    created: "2026-02-05T11:57:55.395511172+02:00"
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.12-4.18. Supports multi-architecture deployments
@@ -51,7 +51,7 @@ entries:
     version: 0.2.6
   - apiVersion: v2
     appVersion: release-0.2.5
-    created: "2026-01-20T09:00:28.403049645Z"
+    created: "2026-02-05T11:57:55.39522593+02:00"
     deprecated: true
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
@@ -71,7 +71,7 @@ entries:
     version: 0.2.5
   - apiVersion: v2
     appVersion: release-0.2.4
-    created: "2026-01-20T09:00:28.402716336Z"
+    created: "2026-02-05T11:57:55.394977755+02:00"
     deprecated: true
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
@@ -91,7 +91,7 @@ entries:
     version: 0.2.4
   - apiVersion: v2
     appVersion: release-0.2.3
-    created: "2026-01-20T09:00:28.402347541Z"
+    created: "2026-02-05T11:57:55.394721726+02:00"
     deprecated: true
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
@@ -111,11 +111,12 @@ entries:
     version: 0.2.3
   - apiVersion: v2
     appVersion: release-0.0.1
-    created: "2026-01-20T09:00:28.401933842Z"
+    created: "2026-02-05T11:57:55.394414423+02:00"
+    deprecated: true
     description: 'Red Hat OpenShift dynamic console plugin that leverages the NVIDIA
       GPU operator metrics and serves the respective console-extensions. Requires
       Red Hat OpenShift version 4.10+ '
-    digest: 7e5e38fdbf160bdb8909a6455a0b81410f79690880ec4904f8ba8bf9eccca15b
+    digest: 289a55ff7e741bd37b0955c3a3c7c88917edfc3c1a6bc294b988d1fe8d65f048
     home: https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu
     keywords:
     - openshift-console
@@ -131,4 +132,4 @@ entries:
     urls:
     - console-plugin-nvidia-gpu-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-20T09:00:28.401401764Z"
+generated: "2026-02-05T11:57:55.390741514+02:00"
