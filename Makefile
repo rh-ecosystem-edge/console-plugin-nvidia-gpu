@@ -1,5 +1,5 @@
 .PHONY: help build-dev-image build lint type-check i18n clean update-lockfile \
-        build-image push-image helm-lint deploy undeploy
+        build-image push-image helm-lint deploy undeploy sync-docs
 
 # Configuration
 REGISTRY ?= quay.io/edge-infrastructure
@@ -33,6 +33,9 @@ help: ## Show this help
 	@printf "\n"
 	@printf "$(YELLOW)Helm:$(RESET)\n"
 	@grep -E '^(helm-lint|deploy|undeploy):.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(BLUE)%-18s$(RESET) %s\n", $$1, $$2}'
+	@printf "\n"
+	@printf "$(YELLOW)Documentation:$(RESET)\n"
+	@grep -E '^sync-docs:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(BLUE)%-20s$(RESET) %s\n", $$1, $$2}'
 	@printf "\n"
 	@printf "$(YELLOW)Variables:$(RESET)\n"
 	@printf "  IMAGE_TAG=$(IMAGE_TAG)  (default: git commit hash)\n"
@@ -125,3 +128,29 @@ undeploy: ## Remove plugin from cluster
 	@printf "$(GREEN)Removing $(RELEASE_NAME)...$(RESET)\n"
 	helm uninstall -n $(NAMESPACE) $(RELEASE_NAME)
 	@printf "$(GREEN)✓ Removed $(RELEASE_NAME)$(RESET)\n"
+
+##@ Documentation
+
+# INDEX_FILE can be overridden: make sync-docs INDEX_FILE=/path/to/index.yaml
+INDEX_FILE ?=
+
+sync-docs: ## Sync documentation (updates compat table and generates Helm README)
+ifeq ($(INDEX_FILE),)
+	@printf "$(GREEN)Fetching index.yaml from gh-pages...$(RESET)\n"
+	@git fetch origin gh-pages 2>/dev/null || true
+	@tmpfile=$$(mktemp) && \
+		trap "rm -f $$tmpfile" EXIT && \
+		git show origin/gh-pages:index.yaml > "$$tmpfile" && \
+		printf "$(GREEN)Syncing documentation...$(RESET)\n" && \
+		bash scripts/generate-readme.sh \
+			"$$tmpfile" \
+			README.md \
+			deployment/console-plugin-nvidia-gpu/README.md
+else
+	@printf "$(GREEN)Syncing documentation...$(RESET)\n"
+	@bash scripts/generate-readme.sh \
+		$(INDEX_FILE) \
+		README.md \
+		deployment/console-plugin-nvidia-gpu/README.md
+endif
+	@printf "$(GREEN)Done$(RESET)\n"

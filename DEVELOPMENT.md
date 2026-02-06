@@ -1,8 +1,32 @@
-# Dependency Version Constraints
+# Development Guide
 
-This document explains why certain dependencies are pinned to specific versions.
+## Local Development
 
-## Pinned Dependencies
+This plugin extends the OpenShift console at runtime using [webpack module federation](https://webpack.js.org/concepts/module-federation/). To run it locally, you need a running OpenShift console instance.
+
+### Setting Up the OpenShift Console
+
+Follow these steps to run the OpenShift console in development mode:
+
+1. Follow the instructions in the [OpenShift console README](https://github.com/openshift/console) to build the application.
+2. Run the console bridge:
+   ```console
+   ./bin/bridge -plugins console-plugin-nvidia-gpu=http://127.0.0.1:9001/
+   ```
+3. Start the console in development mode: navigate to `console/frontend` and run `yarn run dev`
+
+### Running the Plugin
+
+After the OpenShift console is set up, perform the following steps:
+
+1. Install and configure the NVIDIA GPU Operator
+2. Clone this repository
+3. Install dependencies: `yarn install`
+4. Start the plugin in development mode: `yarn start`
+
+## Dependency Version Constraints
+
+Some dependencies are pinned to specific versions due to compatibility requirements.
 
 ### `@patternfly/react-charts` → `^7.4.2`
 
@@ -15,6 +39,7 @@ This document explains why certain dependencies are pinned to specific versions.
 ### `webpack` → `5.75.0`
 
 **Reason**: Required by `@openshift-console/dynamic-plugin-sdk-webpack@1.1.1`. Version 5.76.0+ causes build failure:
+
 ```console
 TypeError: The 'compilation' argument must be an instance of Compilation
 ```
@@ -25,7 +50,7 @@ TypeError: The 'compilation' argument must be an instance of Compilation
 
 ### `i18next` → Peer Dependency Only
 
-**Reason**: OpenShift Console provides `i18next` as a shared module via webpack module federation.
+**Reason**: OpenShift console provides `i18next` as a shared module via webpack module federation.
 
 **Impact**: Plugin must not bundle its own `i18next` to avoid duplicate instances and version conflicts.
 

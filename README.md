@@ -1,40 +1,42 @@
-# OpenShift Console NVIDIA GPU Plugin
+# OpenShift Console Plugin for NVIDIA GPU
 
-**:warning: Warning:**
-The console plugin for NVIDIA GPU is not actively maintained, and not supported.
-Use at your own risk.
+> **Warning:**
+> This plugin is not actively maintained or supported. Use at your own risk.
 
+<!-- BEGIN:DESCRIPTION -->
+A [dynamic plugin](https://github.com/openshift/console/tree/master/frontend/packages/console-dynamic-plugin-sdk) for the [OpenShift console](https://github.com/openshift/console) that adds GPU monitoring dashboards and visualizations using metrics from the [NVIDIA GPU Operator](https://github.com/NVIDIA/gpu-operator).
 
-Dynamic plugin for the OpenShift console which adds GPU capabilities.
+Multi-architecture images (amd64, arm64) are available starting from version 0.2.6.
+<!-- END:DESCRIPTION -->
 
-## OCP version compatibility
+## OpenShift Version Compatibility
 
-| NVIDIA GPU plugin      | OCP Console |
-| ---------------------- | ----------- |
-| main (development)     | 4.19+       |
-| 0.3.0                  | 4.19+       |
-| 0.2.6                  | 4.12-4.18   |
-| 0.2.4                  | 4.11        |
-| 0.0.1                  | 4.10        |
+<!-- Auto-generated from gh-pages:index.yaml - do not edit manually -->
+<!-- BEGIN:COMPAT-TABLE -->
+| Plugin version | OpenShift version |
+| -------------- | ----------------- |
+| 0.3.0          | 4.19+             |
+| 0.2.6          | 4.12-4.18         |
+| 0.1.0          | 4.10+             |
+<!-- END:COMPAT-TABLE -->
 
-**Note:** Multi-arch container images with support for amd64 and arm64 architectures are available starting from version 0.2.6.
-
-## QuickStart
+<!-- BEGIN:HELM-CONTENT -->
+## Quick Start
 
 ### Prerequisites
 
 - [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift)
-- [NVIDIA GPU operator](https://github.com/NVIDIA/gpu-operator)
+- [NVIDIA GPU Operator](https://github.com/NVIDIA/gpu-operator)
 - [Helm](https://helm.sh/docs/intro/install/)
 
 ### Deployment
 
-```
+```console
 # add Helm repo
 $ helm repo add rh-ecosystem-edge https://rh-ecosystem-edge.github.io/console-plugin-nvidia-gpu
 $ helm repo update
 
-# install the Helm chart in the default NVIDIA GPU operator namespace
+# install Helm chart in the default NVIDIA GPU operator namespace
 $ helm install -n nvidia-gpu-operator console-plugin-nvidia-gpu rh-ecosystem-edge/console-plugin-nvidia-gpu
 
 # view deployed resources
@@ -53,21 +55,15 @@ $ oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path"
 $ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "dcgmExporter": { "config": { "name": "console-plugin-nvidia-gpu" } } } }' --type=merge
 ```
 
-### Local development
+### Helm Tests
 
-OpenShift Console NVIDIA GPU Plugin works as a remote bundle for OCP console. To run OpenShift
-Console NVIDIA GPU Plugin there should be an instance of the OCP console up and running. Follow these
-steps to run the OCP Console in development mode:
+The Helm chart includes tests to verify successful deployment. To run them:
 
-- Follow everything as mentioned in the console [README.md](https://github.com/openshift/console)
-  to build the application.
-- Run the console bridge as follows `./bin/bridge -plugins console-plugin-nvidia-gpu=http://127.0.0.1:9001/`
-- Run development mode of console by going into `console/frontend` and running `yarn run dev`
+```console
+$ helm test -n nvidia-gpu-operator console-plugin-nvidia-gpu --timeout 2m
+```
+<!-- END:HELM-CONTENT -->
 
-After the OCP console is set up as described above, perform the following steps to run the plugin:
+## Development
 
-- Install & setup the NVIDIA GPU Operator
-- Clone this repo
-- Pull all required dependencies by running `yarn install`
-- Run the development mode by running `yarn start`
-
+See [DEVELOPMENT.md](DEVELOPMENT.md) for local development setup and contributing guidelines.
