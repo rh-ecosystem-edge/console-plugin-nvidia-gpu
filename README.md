@@ -18,6 +18,7 @@ Multi-architecture images (amd64, arm64) are available starting from version 0.2
 | -------------- | ----------------- |
 | 0.3.0          | 4.19+             |
 | 0.2.6          | 4.12-4.18         |
+
 <!-- END:COMPAT-TABLE -->
 
 <!-- BEGIN:HELM-CONTENT -->
