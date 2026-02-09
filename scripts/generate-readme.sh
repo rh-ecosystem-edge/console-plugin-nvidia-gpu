@@ -123,7 +123,7 @@ generate_compat_table() {
     exit 1
   fi
 
-  printf '\n%s\n%s\n' "$table_header" "$table_rows"
+  printf '\n%s\n%s\n\n' "$table_header" "$table_rows"
 }
 
 # Extract content from root README
