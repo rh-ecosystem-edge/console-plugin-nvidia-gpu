@@ -2,9 +2,11 @@
 
 <!-- AUTO-GENERATED FROM README.md - DO NOT EDIT MANUALLY -->
 <!-- BEGIN:DESCRIPTION -->
+
 A [dynamic plugin](https://github.com/openshift/console/tree/master/frontend/packages/console-dynamic-plugin-sdk) for the [OpenShift console](https://github.com/openshift/console) that adds GPU monitoring dashboards and visualizations using metrics from the [NVIDIA GPU Operator](https://github.com/NVIDIA/gpu-operator).
 
 Multi-architecture images (amd64, arm64) are available starting from version 0.2.6.
+
 <!-- END:DESCRIPTION -->
 
 ## Compatibility
@@ -12,6 +14,7 @@ Multi-architecture images (amd64, arm64) are available starting from version 0.2
 For compatibility of all plugin versions with OpenShift, see the [full compatibility table](https://rh-ecosystem-edge.github.io/console-plugin-nvidia-gpu).
 
 <!-- BEGIN:HELM-CONTENT -->
+
 ## Quick Start
 
 ### Prerequisites
@@ -57,4 +60,5 @@ The Helm chart includes tests to verify successful deployment. To run them:
 ```console
 $ helm test -n nvidia-gpu-operator console-plugin-nvidia-gpu --timeout 2m
 ```
+
 <!-- END:HELM-CONTENT -->

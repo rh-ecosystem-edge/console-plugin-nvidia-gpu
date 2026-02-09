@@ -71,9 +71,15 @@ replace_section() {
   before=$(sed -n "1,/$begin_pattern/p" "$file")
   after=$(sed -n "/$end_pattern/,\$p" "$file")
 
+  # Strip leading newline from content if present, then add blank lines
+  # This ensures consistent formatting regardless of content structure
+  content="${content#$'\n'}"
+
+  # Add blank lines after BEGIN and before END markers for consistency
+  # (trailing newlines are stripped by command substitution)
   {
     printf '%s\n' "$before"
-    printf '%s\n' "$content"
+    printf '\n%s\n\n' "$content"
     printf '%s' "$after"
   } > "$file"
 }
@@ -123,7 +129,10 @@ generate_compat_table() {
     exit 1
   fi
 
-  printf '\n%s\n%s\n\n' "$table_header" "$table_rows"
+  local output
+  output=$(printf '%s\n%s\n\n' "$table_header" "$table_rows")
+
+  echo "$output"
 }
 
 # Extract content from root README
