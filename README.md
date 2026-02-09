@@ -13,10 +13,12 @@ Multi-architecture images (amd64, arm64) are available starting from version 0.2
 
 <!-- Auto-generated from gh-pages:index.yaml - do not edit manually -->
 <!-- BEGIN:COMPAT-TABLE -->
+
 | Plugin version | OpenShift version |
 | -------------- | ----------------- |
 | 0.3.0          | 4.19+             |
 | 0.2.6          | 4.12-4.18         |
+
 <!-- END:COMPAT-TABLE -->
 
 <!-- BEGIN:HELM-CONTENT -->
@@ -65,4 +67,4 @@ $ helm test -n nvidia-gpu-operator console-plugin-nvidia-gpu --timeout 2m
 
 ## Development
 
-See [DEVELOPMENT.md](DEVELOPMENT.md) for local development setup and contributing guidelines.
+See [DEVELOPMENT.md](https://github.com/rh-ecosystem-edge/console-plugin-nvidia-gpu/blob/main/DEVELOPMENT.md) for local development setup and contributing guidelines.
