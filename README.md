@@ -18,7 +18,6 @@ Multi-architecture images (amd64, arm64) are available starting from version 0.2
 | -------------- | ----------------- |
 | 0.3.0          | 4.19+             |
 | 0.2.6          | 4.12-4.18         |
-
 <!-- END:COMPAT-TABLE -->
 
 <!-- BEGIN:HELM-CONTENT -->
@@ -55,6 +54,10 @@ $ oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path"
 # add the required DCGM Exporter metrics ConfigMap to the existing NVIDIA operator ClusterPolicy CR
 $ oc patch clusterpolicies.nvidia.com gpu-cluster-policy --patch '{ "spec": { "dcgmExporter": { "config": { "name": "console-plugin-nvidia-gpu" } } } }' --type=merge
 ```
+
+### DCGM Metrics Configuration
+
+**Important**: Configuring the plugin's metrics ConfigMap will **override** any default or custom DCGM metrics. To collect additional metrics beyond those required by the plugin, merge the plugin's required metrics with your custom list into a new ConfigMap before applying it to the ClusterPolicy.
 
 ### Helm Tests
 
