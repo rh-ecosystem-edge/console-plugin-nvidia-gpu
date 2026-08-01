@@ -18,7 +18,7 @@ DCGM_FI_DEV_XID_ERRORS,gauge,Value of the last XID error encountered.
 DCGM_FI_DEV_FB_FREE,gauge,Framebuffer memory free (in MiB).
 DCGM_FI_DEV_FB_USED,gauge,Framebuffer memory used (in MiB).
 DCGM_FI_DEV_FB_RESERVED,gauge,Framebuffer memory reserved (in MiB).
-DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL,counter,Total number of NVLink bandwidth counters for all lanes.
+DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL,gauge,Total number of NVLink bandwidth counters for all lanes.
 DCGM_FI_DEV_VGPU_LICENSE_STATUS,gauge,vGPU License status
 DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS,counter,Number of remapped rows for uncorrectable errors
 DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS,counter,Number of remapped rows for correctable errors
